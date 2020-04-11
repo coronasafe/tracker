@@ -3,10 +3,20 @@ import DatePicker from "react-date-picker";
 
 export default function CreateSuspect() {
   const [check, setCheck] = useState({dob: new Date(1991,0)})
+  const [inputs,setInputs]=useState({})
   return (
     <div className="h-screen overflow-hidden flex items-center justify-center" style={{background: "#edf2f7"}}>
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
         <div className="-mx-3 md:flex mb-2">
+          <div className="px-3 mb-6 w-full">
+            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+            Name
+            </label>
+            <input className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" id="grid-name" type="text" placeholder="Doe"/>
+            <p className="text-red text-xs italic">Please fill out this field.</p>
+          </div>
+        </div>
+          <div className="-mx-3 md:flex mb-2">
           <div className="md:w-1/2 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-city">
               Date of Birth
@@ -46,6 +56,14 @@ export default function CreateSuspect() {
             <p className="text-red text-xs italic">Please fill out this field.</p>
           </div>
         </div>
+        <div class="md:flex md:items-right">
+          <div class="md:w-1/3"></div>
+            <div class="md:w-2/3">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline float-right" type="button">
+               Submit
+              </button>
+            </div>
+          </div>
       </div>
     </div>
   );

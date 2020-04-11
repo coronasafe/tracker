@@ -17,6 +17,10 @@ const AppRouter = () => {
         <div>
             <NavBar />
             {pages}
+            {!pages && 
+            <div className="h-screen flex justify-center py-16">
+                Error 404: Page not found
+            </div>}
         </div>
     )
 }

@@ -7,13 +7,10 @@ export default function NavBar(){
              Home
          </a>
          <a class="no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="#">
-             Products
+             Suspects
          </a>
          <a class="no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3 mr-8" href="#">
-             Discounts
-         </a>
-         <a class="no-underline text-grey-dark border-b-2 border-transparent uppercase tracking-wide font-bold text-xs py-3" href="#">
-             Customers
+             Users
          </a>
      </div>
     </nav>

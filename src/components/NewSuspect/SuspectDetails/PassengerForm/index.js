@@ -1,19 +1,20 @@
 import React from "react";
 import FormRow from "../../../common/FormRow";
 import Labelled from "../../../common/Labelled";
-import Dropdown, { AsyncDropdown } from "../../../common/Dropdown";
+import  { AsyncDropdown } from "../../../common/Dropdown";
 import { getCountryOptions } from "./service";
 import CommonSection from "../CommonSection";
+import DatePicker from "../../../common/DatePicker";
 
 function PassengerForm({ data, setData }) {
   return (
     <>
       <FormRow>
         <Labelled label="Date of departure from affected country/region">
-          <Dropdown options={[]} />
+          <DatePicker onChange={setData("dateOfDeparture")} value={data["dateOfDeparture"]}/>
         </Labelled>
         <Labelled label="Date of reciept of information">
-          <Dropdown options={[]} />
+          <DatePicker onChange={setData("dateOfReciept")} value={data["dateOfReciept"]}/>
         </Labelled>
       </FormRow>
       <FormRow totalWidth={2}>

@@ -8,6 +8,7 @@ import {
   modeOfContactOptions,
 } from "./constants";
 import CommonSection from "../CommonSection";
+import DatePicker from "../../../common/DatePicker";
 
 function ContactForm({ data, setData }) {
   return (
@@ -30,10 +31,10 @@ function ContactForm({ data, setData }) {
       </FormRow>
       <FormRow>
         <Labelled label="Date of First Contact">
-          <Dropdown options={[]} />
+          <DatePicker onChange={setData("dateOfFirstContact")} value={data["dateOfFirstContact"]}/>
         </Labelled>
         <Labelled label="Date of Last Contact">
-          <Dropdown options={[]} />
+          <DatePicker onChange={setData("dateOfLastContact")} value={data["dateOfLastContact"]}/>
         </Labelled>
         <Labelled label="Primary/Secondary">
           <Dropdown

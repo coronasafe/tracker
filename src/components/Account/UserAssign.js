@@ -12,9 +12,14 @@ export default function UserAssign() {
 		{ label: 'PHC/Railway/Airport Admins', value: 4 },
 	]);
 	const [phcs, setPhcs] = useState([
-		{ label: 'me', value: 1 },
-		{ label: 'you', value: 2 },
-		{ label: 'them', value: 3 },
+		{ label: 'Kerala Government medical college hospital Calicut', value: 1 },
+		{
+			label: 'Kerala Government medical college hospital Trivandrum',
+			value: 2,
+		},
+		{ label: 'Kerala Government medical college hospital Kollam', value: 3 },
+		{ label: 'Kerala medical college Kochi', value: 4 },
+		{ label: 'Sree chithira thirunal hospital 272627', value: 5 },
 	]);
 
 	const [selectedPhcs, setSelectedPhcs] = useState(null);
@@ -151,8 +156,8 @@ export default function UserAssign() {
 									</p>
 								</div>
 							</div>
-							<div class='flex flex-wrap -mx-3 mb-2'>
-								<div class='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+							<div class='flex flex-wrap -mx mb-2'>
+								<div class='w-full md:w mb-4'>
 									<label
 										class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
 										for='grid-role'>
@@ -169,7 +174,7 @@ export default function UserAssign() {
 										</p>
 									</div>
 								</div>
-								<div class='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+								<div class='w-full md:w mb-4'>
 									<label
 										class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
 										for='grid-phcs'>
@@ -180,6 +185,7 @@ export default function UserAssign() {
 											name='phcs'
 											value={selectedPhcs}
 											onChange={selectedPhcHandler}
+											closeMenuOnSelect={false}
 											options={phcs}
 											isMulti={values.role.value !== 4 ? true : false}
 											isSearchable={true}

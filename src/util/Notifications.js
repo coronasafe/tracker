@@ -3,9 +3,7 @@ import "pnotify/dist/es/PNotifyStyleMaterial";
 import "pnotify/dist/es/PNotifyButtons";
 
 // Set default styling.
-// PNotify.defaults.styling = "material";
-// This icon setting requires the Material Icons font. (See below.)
-// PNotify.defaults.icons = "material";
+PNotify.defaults.styling = "material";
 
 /** Success message handler */
 export const Success = ({msg}) => {

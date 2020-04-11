@@ -3,17 +3,29 @@ import FormRow from "../../../common/FormRow";
 import Labelled from "../../../common/Labelled";
 import Input from "../../../common/Input";
 import Dropdown from "../../../common/Dropdown";
-import Textarea from "../../../common/Textarea";
+import {
+  relationToPositivePatientOptions,
+  modeOfContactOptions,
+} from "./constants";
+import CommonSection from "../CommonSection";
 
-function ContactForm() {
+function ContactForm({ data, setData }) {
   return (
     <>
       <FormRow>
         <Labelled label="Covid Patient Code">
-          <Input helpText="(Identified Positive Case)" />
+          <Input
+            value={data["covidPatientCode"]}
+            onChange={setData("covidPatientCode")}
+            helpText="(Identified Positive Case)"
+          />
         </Labelled>
         <Labelled label="Relation to identified-positive-patient">
-          <Dropdown options={[]} />
+          <Dropdown
+            currentOption={data["relationToPositivePatient"]}
+            setOption={setData("relationToPositivePatient")}
+            options={relationToPositivePatientOptions}
+          />
         </Labelled>
       </FormRow>
       <FormRow>
@@ -23,53 +35,24 @@ function ContactForm() {
         <Labelled label="Date of Last Contact">
           <Dropdown options={[]} />
         </Labelled>
-      </FormRow>
-      <FormRow>
         <Labelled label="Primary/Secondary">
-          <Dropdown options={[]} />
+          <Dropdown
+            currentOption={data["typeOfContact"]}
+            setOption={setData("typeOfContact")}
+            options={["Primary", "Secondary"]}
+          />
         </Labelled>
+      </FormRow>
+      <FormRow>
         <Labelled label="Mode of Contact">
-          <Dropdown options={[]} />
-        </Labelled>
-        <Labelled label="Condition of Contact">
-          <Dropdown options={[]} />
-        </Labelled>
-      </FormRow>
-      <FormRow>
-        <Labelled label="Sample Sent">
-          <Dropdown options={[]} />
-        </Labelled>
-        <Labelled label="Lab">
-          <Dropdown options={[]} />
-        </Labelled>
-        <Labelled label="Lab Result">
-          <Dropdown options={[]} />
+          <Dropdown
+            currentOption={data["modeOfContact"]}
+            setOption={setData("modeOfContact")}
+            options={modeOfContactOptions}
+          />
         </Labelled>
       </FormRow>
-      <FormRow totalWidth={3}>
-        <Labelled label="Severity of Contact">
-          <Dropdown options={[]} />
-        </Labelled>
-        <Labelled label="Type of Contact">
-          <Dropdown options={[]} />
-        </Labelled>
-      </FormRow>
-      <FormRow>
-        <Labelled label="Home Isolation">
-          <Dropdown options={[]} />
-        </Labelled>
-        <Labelled label="Hospital Admission">
-          <Dropdown options={[]} />
-        </Labelled>
-        <Labelled label="Date of isolation">
-          <Dropdown options={[]} />
-        </Labelled>
-      </FormRow>
-      <FormRow>
-        <Labelled label="Remarks">
-          <Textarea />
-        </Labelled>
-      </FormRow>
+      <CommonSection data={data} setData={setData}/>
     </>
   );
 }

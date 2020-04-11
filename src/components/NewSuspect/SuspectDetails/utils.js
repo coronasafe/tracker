@@ -56,7 +56,6 @@ export function getErrorText(data) {
   }
 }
 export function getUnfilledFields(data) {
-  return [];
   let requiredFields = [
     "address",
     "district",

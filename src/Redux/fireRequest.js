@@ -1,5 +1,6 @@
 import axios from 'axios';
 import api from './api';
+import * as Notficiation from '../util/Notifications'
 
 export const actions = {
     FETCH_REQUEST: 'FETCH_REQUEST',
@@ -106,7 +107,7 @@ export const fireRequest = (
 
                 // 400 Bad Request Error
                 if (error.response.status === 400) {
-                    console.error({
+                    Notficiation.BadRequest({
                         errs: error.response.data
                     });
                     return;
@@ -119,13 +120,13 @@ export const fireRequest = (
                         let err = {
                             msg: error.response.data.detail
                         }
-                        console.error(err);
+                        Notficiation.Error(err);
                         return err
                     } else {
                         let err = {
                             msg: 'Something went Wrong...!'
                         }
-                        console.error(err);
+                        Notficiation.Error(err);
                         return err
                     }
                     return;
@@ -133,7 +134,7 @@ export const fireRequest = (
 
                 // 5xx Errors
                 if (error.response.status >= 500 && error.response.status <= 599) {
-                    console.error({
+                    Notficiation.Error({
                         msg: 'Something went Wrong...!'
                     });
                     return;

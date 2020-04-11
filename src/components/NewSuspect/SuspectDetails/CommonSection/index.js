@@ -5,7 +5,7 @@ import Dropdown, { AsyncDropdown } from "../../../common/Dropdown";
 import Textarea from "../../../common/Textarea";
 import { HomeIsolationOptions, HospitalAdmissionOptions } from "./constants";
 import { getSeverityOfContact } from "./utils";
-import DatePicker from '../../../common/DatePicker';
+import DatePicker from "../../../common/DatePicker";
 import { getLabOptions } from "./service";
 
 function CommonSection({ data, setData }) {
@@ -28,7 +28,7 @@ function CommonSection({ data, setData }) {
         )}
       </FormRow>
       <FormRow totalWidth={3}>
-        <Labelled label="Sample Sent">
+        <Labelled label="Sample Sent *">
           <Dropdown
             currentOption={data["sampleSent"]}
             setOption={setData("sampleSent")}
@@ -67,14 +67,14 @@ function CommonSection({ data, setData }) {
         </Labelled>
       </FormRow>
       <FormRow>
-        <Labelled label="Home Isolation">
+        <Labelled label="Home Isolation *">
           <Dropdown
             currentOption={data["homeIsolation"]}
             setOption={setData("homeIsolation")}
             options={HomeIsolationOptions}
           />
         </Labelled>
-        <Labelled label="Hospital Admission">
+        <Labelled label="Hospital Admission *">
           <Dropdown
             currentOption={data["hospitalAdmission"]}
             setOption={setData("hospitalAdmission")}
@@ -82,8 +82,10 @@ function CommonSection({ data, setData }) {
           />
         </Labelled>
         <Labelled label="Date of isolation">
-          <DatePicker value={data["dateOfIsolation"]}
-            onChange={setData("dateOfIsolation")}/>
+          <DatePicker
+            value={data["dateOfIsolation"]}
+            onChange={setData("dateOfIsolation")}
+          />
         </Labelled>
       </FormRow>
       <FormRow>

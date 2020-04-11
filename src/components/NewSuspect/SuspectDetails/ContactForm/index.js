@@ -14,7 +14,7 @@ function ContactForm({ data, setData }) {
   return (
     <>
       <FormRow>
-        <Labelled label="Covid Patient Code">
+        <Labelled label="Covid Patient Code *">
           <Input
             value={data["covidPatientCode"]}
             onChange={setData("covidPatientCode")}
@@ -31,10 +31,16 @@ function ContactForm({ data, setData }) {
       </FormRow>
       <FormRow>
         <Labelled label="Date of First Contact">
-          <DatePicker onChange={setData("dateOfFirstContact")} value={data["dateOfFirstContact"]}/>
+          <DatePicker
+            onChange={setData("dateOfFirstContact")}
+            value={data["dateOfFirstContact"]}
+          />
         </Labelled>
         <Labelled label="Date of Last Contact">
-          <DatePicker onChange={setData("dateOfLastContact")} value={data["dateOfLastContact"]}/>
+          <DatePicker
+            onChange={setData("dateOfLastContact")}
+            value={data["dateOfLastContact"]}
+          />
         </Labelled>
         <Labelled label="Primary/Secondary">
           <Dropdown
@@ -53,7 +59,7 @@ function ContactForm({ data, setData }) {
           />
         </Labelled>
       </FormRow>
-      <CommonSection data={data} setData={setData}/>
+      <CommonSection data={data} setData={setData} />
     </>
   );
 }

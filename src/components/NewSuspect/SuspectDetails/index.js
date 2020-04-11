@@ -11,14 +11,18 @@ import {
   getDistrictOptions,
   getLSGNameOptions,
   getHCNameOptions,
+  saveForm,
 } from "./service";
 import Button from "../../common/Button";
 import { OccupationOptions, HealthCentreTypeOptions } from "./constants";
+import { getUnfilledFields, getErrorText } from "./utils";
+import Alert from "../../common/Alert";
 
 export default function SuspectDetails() {
   const [formData, setFormData] = useState({
     typeOfLSG: "Panchayat",
   });
+  const [saveFormStatus, setSaveFormStatus] = useState("");
   function setData(key) {
     return function (value) {
       setFormData({
@@ -27,6 +31,22 @@ export default function SuspectDetails() {
       });
     };
   }
+  function submitForm() {
+    setSaveFormStatus("Pending");
+    saveForm(formData)
+      .then(() => {
+        setSaveFormStatus("Success");
+        setTimeout(() => {
+          setSaveFormStatus("");
+        }, 10000);
+      })
+      .catch(() => {
+        setSaveFormStatus("Failure");
+        setTimeout(() => {
+          setSaveFormStatus("");
+        }, 10000);
+      });
+  }
   console.log("Form Data : ", formData);
   return (
     <div
@@ -34,6 +54,34 @@ export default function SuspectDetails() {
       style={{ background: "#edf2f7" }}
     >
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-6 flex flex-col my-4 w-3/4 h-auto">
+        {saveFormStatus === "Pending" && (
+          <Alert
+            type="pending"
+            text={"Save is in progress"}
+            onClose={() => {
+              setSaveFormStatus("");
+            }}
+          />
+        )}
+        {saveFormStatus === "Failure" && (
+          <Alert
+            type="bad"
+            text={"Save failed"}
+            onClose={() => {
+              setSaveFormStatus("");
+            }}
+          />
+        )}
+        {saveFormStatus === "Success" && (
+          <Alert
+            type="good"
+            text={"Save successful"}
+            onClose={() => {
+              setSaveFormStatus("");
+            }}
+          />
+        )}
+        <br />
         <FormRow bordered>
           <Labelled label="Name">Amal</Labelled>
           <Labelled label="Date of birth">27/10/1996</Labelled>
@@ -59,7 +107,7 @@ export default function SuspectDetails() {
         </FormRow>
 
         <FormRow>
-          <Labelled label="Address">
+          <Labelled label="Address *">
             <Textarea
               value={formData["address"]}
               onChange={setData("address")}
@@ -68,7 +116,7 @@ export default function SuspectDetails() {
         </FormRow>
 
         <FormRow totalWidth={4}>
-          <Labelled label="District">
+          <Labelled label="District *">
             <AsyncDropdown
               loadOptionsService={getDistrictOptions}
               setOption={setData("district")}
@@ -77,14 +125,14 @@ export default function SuspectDetails() {
         </FormRow>
 
         <FormRow>
-          <Labelled label="Type of LSG">
+          <Labelled label="Type of LSG *">
             <Dropdown
               options={["Panchayat", "Muncipality", "Corporation"]}
               currentOption={formData["typeOfLSG"]}
               setOption={setData("typeOfLSG")}
             />
           </Labelled>
-          <Labelled label={"Name of " + formData["typeOfLSG"]}>
+          <Labelled label={"Name of " + formData["typeOfLSG"] + " *"}>
             <AsyncDropdown
               setOption={setData("nameOfLSG")}
               loadOptionsService={getLSGNameOptions(formData["typeOfLSG"])}
@@ -101,7 +149,7 @@ export default function SuspectDetails() {
             />
           </Labelled>
 
-          <Labelled label="Name of nearest PHC/FHC">
+          <Labelled label="Name of nearest PHC/FHC *">
             <AsyncDropdown
               setOption={setData("nameOfHC")}
               loadOptionsService={getHCNameOptions(formData["typeOfHC"])}
@@ -110,7 +158,7 @@ export default function SuspectDetails() {
         </FormRow>
 
         <FormRow>
-          <Labelled label="Type">
+          <Labelled label="Type *">
             <RadioSelect
               value={formData["type"]}
               setValue={setData("type")}
@@ -127,7 +175,12 @@ export default function SuspectDetails() {
           ))}
 
         <FormRow>
-          <Button text={"Submit"} disabled={true} onClick={() => {}} />
+          {getErrorText(formData)}
+          <Button
+            text={"Submit"}
+            disabled={getUnfilledFields(formData).length !== 0}
+            onClick={submitForm}
+          />
         </FormRow>
       </div>
     </div>

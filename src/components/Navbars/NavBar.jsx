@@ -17,11 +17,7 @@ export default function NavBar(){
          {
            link: '/suspect/details',
            title: 'Suspect Details'
-         },
-         {
-           link: '/users',
-           title: 'Users'
-         },
+         }
        ].map(route=>(
          <A className="no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3 mr-8" 
                   href={route.link}
@@ -29,6 +25,18 @@ export default function NavBar(){
              {route.title}
          </A>
        ))}
+        <A className="no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3 mr-8"
+           href='/logout'
+           onClick={(e)=>{
+              e.preventDefault()
+              localStorage.setItem("care_access_token","")
+              localStorage.setItem("care_refresh_token","")
+              navigate("/")
+              window.location.reload()
+           }}
+        >
+          LOGOUT
+        </A>
      </div>
     </nav>
   )

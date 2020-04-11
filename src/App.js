@@ -1,16 +1,26 @@
 import React,{useState} from 'react';
-import NavBar from './components/NavBar'
-import CreateSuspect from "./components/NewSuspect/CreateSuspect"
-import SuspectDetails from "./components/NewSuspect/SuspectDetails"
 import './App.css';
+import AppRouter from './Router/AppRouter';
+import PublicRouter from './Router/PublicRouter';
 
 function App() {
-  return (
-    <div>
-    <NavBar />
-    <CreateSuspect />
-    </div>
-  );
+  const isAuth = true;
+  const isLoading = false;
+
+  // keep isLoading in redux, so that if any component is loading
+  // App component will render loading page
+  // This can be kept within AppRouter as well incase navbar needs
+  // to be kept on UI
+  if(isLoading){
+    return <div>Loading component</div>
+  }
+
+
+  if(isAuth)
+    return <AppRouter/>
+  else {
+    return <PublicRouter/>
+  }
 }
 
 export default App;

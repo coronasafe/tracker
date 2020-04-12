@@ -3,8 +3,9 @@ import { A, navigate } from 'hookrouter'
 
 export default function PublicNavBar(){
   return (
-    <nav className="bg-white px-8 pt-2 shadow-md">
+    <nav className="bg-green-600 px-8 pt-2 shadow-md">
      <div className="-mb-px flex">
+       <img className="px-10" src={require("../../img/covid_tracker_small_logo.png")} />
        {[
          {
            link: '/',
@@ -19,7 +20,7 @@ export default function PublicNavBar(){
            title: 'Contact'
          },
        ].map(route=>(
-         <A className="mx-auto no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3" 
+         <A className="mx-auto no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3"
                   href={route.link}
                   key={route.link}>
              {route.title}

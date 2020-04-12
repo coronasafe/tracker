@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-		"@availity/phone": "^1.1.14",
+    "@availity/phone": "^1.1.14",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
-		"formik": "^2.1.4",
+    "formik": "^2.1.4",
     "hookrouter": "^1.2.3",
     "pnotify": "^4.0.1",
     "react": "^16.13.1",
@@ -20,7 +20,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "react-select": "^3.1.0",
-		"yup": "^0.28.3"
+    "yup": "^0.28.3"
   },
   "scripts": {
     "build:css": "postcss src/tailwind.css -o src/index.css",

@@ -41,7 +41,7 @@ function App() {
       console.log('Error when refreshing', err)
     })
   }
-  
+
   useEffect(() => {
     updateRefreshToken()
     return () => {
@@ -62,7 +62,7 @@ function App() {
   // This can be kept within AppRouter as well incase navbar needs
   // to be kept on UI
   if(!currentUser || currentUser.isFetching){
-    return <div>Loading component</div>
+    return <div class="lds-dual-ring h-screen w-screen items-center justify-center overflow-hidden flex"></div>
   }
 
 

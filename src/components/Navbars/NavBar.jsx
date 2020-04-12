@@ -20,6 +20,10 @@ export default function NavBar(){
            title: 'Suspect Details'
          },
          {
+           link: '/suspect/view',
+           title: 'View Suspects'
+         },
+         {
            link: '/create-user',
            title: 'Create User'
          }

@@ -21,6 +21,7 @@ export default function SuspectDetails(props) {
 			getSuspectData()
 	}, [])
 	const {
+		name,
 		age,
 		blood_group,
 		gender,
@@ -40,7 +41,7 @@ export default function SuspectDetails(props) {
 					<div class='font-bold text-xl mb-2'>Patient Information</div>
 					<div class='w-screen'>
 						<div class='px-4 py-5 border-b border-gray-200 sm:px-6'>
-							<h3 class='text-lg leading-6 font-medium text-gray-900'>Amal</h3>
+							<h3 class='text-lg leading-6 font-medium text-gray-900'>{name}</h3>
 						</div>
 						<div class='px-4 py-5 sm:px-6'>
 							<dl class='grid grid-cols-1 col-gap-4 row-gap-8 sm:grid-cols-2'>
@@ -174,6 +175,7 @@ export default function SuspectDetails(props) {
 									<dd class='mt-1 text-sm leading-5 text-gray-900'>
 										{(()=>{
 											if(!facility_object) return null
+											if(!(facility_object.location)) return null
 											let { longitude, latitude } = facility_object.location
 											return <a href={`https://www.google.com/maps/search/?api=1&query=${longitude},${latitude}`}>
 												Location: View on google maps

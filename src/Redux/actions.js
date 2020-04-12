@@ -26,3 +26,6 @@ export const setCurrentPatient = (patientData)=>{
         });
     }
 }
+export const getPatients = (params) => {
+    return fireRequest("getPatients", [], params)
+};

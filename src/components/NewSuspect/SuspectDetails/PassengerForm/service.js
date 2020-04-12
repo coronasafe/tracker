@@ -1,5 +1,5 @@
-const countries = ["UK", "US", "Indonesia", "Kuwait", "Dubai"];
-export function getCountryOptions(searchText) {
+const countries = ["UK", "US", "Indonesia", "Kuwait", "UAE"];
+export function getCountryOptions(searchText) { //TO BE REPLACED WITH A PROPER FUNCTION
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(countries);

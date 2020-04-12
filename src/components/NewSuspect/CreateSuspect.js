@@ -1,8 +1,6 @@
-import React, { useState , useEffect } from 'react';
-import DatePicker from 'react-date-picker';
+import React, { useState  } from 'react';
 import {connect} from 'react-redux';
 import { Formik } from 'formik';
-import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import {Success, Error} from '../../util/Notifications';
 import createSuspectValidationSchema from '../../util/create-suspect.validation';
 import { searchPatient, setCurrentPatient } from '../../Redux/actions';

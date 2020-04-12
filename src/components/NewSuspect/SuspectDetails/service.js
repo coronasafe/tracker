@@ -32,12 +32,12 @@ function getCorporationOptions(searchText) {
 
 export function getLSGNameOptions(type) {
   switch (type) {
-    case "Panchayat":
-      return getPanchayatOptions;
     case "Muncipality":
       return getMuncipalityOptions;
     case "Corporation":
       return getCorporationOptions;
+    default:
+        return getPanchayatOptions;
   }
 }
 

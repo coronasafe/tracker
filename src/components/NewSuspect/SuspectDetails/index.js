@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Labelled from "../../common/Labelled";
 import Textarea from "../../common/Textarea";
 import Dropdown, { AsyncDropdown } from "../../common/Dropdown";
@@ -15,14 +15,27 @@ import {
 } from "./service";
 import Button from "../../common/Button";
 import { OccupationOptions, HealthCentreTypeOptions } from "./constants";
-import { getUnfilledFields, getErrorText } from "./utils";
-import Alert from "../../common/Alert";
+import { getUnfilledFields, getErrorText, printDate } from "./utils";
+import { connect } from "react-redux";
+import { setCurrentPatient } from "../../../Redux/actions";
 
-export default function SuspectDetails() {
-  const [formData, setFormData] = useState({
-    typeOfLSG: "Panchayat",
-  });
-  const [saveFormStatus, setSaveFormStatus] = useState("");
+import { navigate } from "hookrouter";
+import { Success, Error } from "../../../util/Notifications";
+
+function SuspectDetails({ formData, setFormData }) {
+  useEffect(() => {
+    if (!formData.typeOfLSG) {
+      setFormData({
+        ...formData,
+        typeOfLSG: "Panchayat",
+      });
+    }
+  }, []);
+
+  if (!formData) {
+    navigate("/");
+    window.location.reload();
+  }
   function setData(key) {
     return function (value) {
       setFormData({
@@ -32,19 +45,12 @@ export default function SuspectDetails() {
     };
   }
   function submitForm() {
-    setSaveFormStatus("Pending");
     saveForm(formData)
       .then(() => {
-        setSaveFormStatus("Success");
-        setTimeout(() => {
-          setSaveFormStatus("");
-        }, 10000);
+        Success("Form Successfully Saved");
       })
       .catch(() => {
-        setSaveFormStatus("Failure");
-        setTimeout(() => {
-          setSaveFormStatus("");
-        }, 10000);
+        Error("Failed to create suspect");
       });
   }
   console.log("Form Data : ", formData);
@@ -54,39 +60,14 @@ export default function SuspectDetails() {
       style={{ background: "#edf2f7" }}
     >
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-6 flex flex-col my-4 w-3/4 h-auto">
-        {saveFormStatus === "Pending" && (
-          <Alert
-            type="pending"
-            text={"Save is in progress"}
-            onClose={() => {
-              setSaveFormStatus("");
-            }}
-          />
-        )}
-        {saveFormStatus === "Failure" && (
-          <Alert
-            type="bad"
-            text={"Save failed"}
-            onClose={() => {
-              setSaveFormStatus("");
-            }}
-          />
-        )}
-        {saveFormStatus === "Success" && (
-          <Alert
-            type="good"
-            text={"Save successful"}
-            onClose={() => {
-              setSaveFormStatus("");
-            }}
-          />
-        )}
         <br />
         <FormRow bordered>
-          <Labelled label="Name">Amal</Labelled>
-          <Labelled label="Date of birth">27/10/1996</Labelled>
-          <Labelled label="Gender">Male</Labelled>
-          <Labelled label="Phone Number">+91 9744859241</Labelled>
+          <Labelled label="Name">{formData.name}</Labelled>
+          <Labelled label="Date of birth">
+            {printDate(formData.dateOfBirth)}
+          </Labelled>
+          <Labelled label="Gender">{formData.gender}</Labelled>
+          <Labelled label="Phone Number">{formData.phone}</Labelled>
         </FormRow>
 
         <FormRow>
@@ -186,3 +167,18 @@ export default function SuspectDetails() {
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    formData: state.currentPatient,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    setFormData: (patientData) => {
+      setCurrentPatient(patientData)(dispatch);
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SuspectDetails);

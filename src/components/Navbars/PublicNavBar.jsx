@@ -8,10 +8,6 @@ export default function PublicNavBar(){
        <img className="px-10" src={require("../../img/covid_tracker_small_logo.png")} />
        {[
          {
-           link: '/',
-           title: 'Home'
-         },
-         {
            link: '/login',
            title: 'Login'
          },
@@ -20,7 +16,7 @@ export default function PublicNavBar(){
            title: 'Contact'
          },
        ].map(route=>(
-         <A className="mx-auto no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3"
+         <A className="no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3 mr-8"
                   href={route.link}
                   key={route.link}>
              {route.title}

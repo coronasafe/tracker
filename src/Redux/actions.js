@@ -12,3 +12,7 @@ export const getCurrentUser = () => {
 export const signupUser = (form) => {
     return fireRequest("createUser", [], form)
 };
+
+export const getPatients = (params) => {
+    return fireRequest("getPatients", [], params)
+};

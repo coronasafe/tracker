@@ -1,7 +1,5 @@
 import { APIRequest } from "../../../Redux/fireRequest";
-import { searchStringMatch } from "./utils";
-
-const districts = ["Ernakulam", "Calicut", "Trivandrum", "Kollam", "Kannur"];
+import { searchStringMatch, transformSubmitRequest } from "./utils";
 
 export function getDistrictOptions(searchText) {
   return APIRequest("getDistrictsList", [""]).then((response) => {
@@ -45,9 +43,6 @@ export function getHCNameOptions(lsg, type) {
 }
 
 export function saveForm(formData) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(districts);
-    }, 1000);
-  });
+  let transformedRequest = transformSubmitRequest(formData);
+  return APIRequest("createPatient",[],transformedRequest);
 }

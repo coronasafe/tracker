@@ -65,4 +65,8 @@ export default {
         path:"/api/v1/facility",
         method:"GET"
     },
+    createPatient:{
+        path:"/api/v1/patient/",
+        method:"POST"
+    }
 }

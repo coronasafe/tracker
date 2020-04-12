@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Labelled from "../../common/Labelled";
 import Textarea from "../../common/Textarea";
 import Dropdown, { AsyncDropdown } from "../../common/Dropdown";
-import Input from "../../common/Input";
 import FormRow from "../../common/FormRow";
 import RadioSelect from "../../common/RadioSelect";
 import PassengerForm from "./PassengerForm";
@@ -20,7 +19,7 @@ import { connect } from "react-redux";
 import { setCurrentPatient } from "../../../Redux/actions";
 
 import { navigate } from "hookrouter";
-import { Success, Error } from "../../../util/Notifications";
+import Options from "../../common/Options";
 
 function SuspectDetails({ formData, setFormData }) {
   const [LSGOptions, setLSGOptions] = useState([]);
@@ -69,13 +68,7 @@ function SuspectDetails({ formData, setFormData }) {
     };
   }
   function submitForm() {
-    saveForm(formData)
-      .then(() => {
-        Success("Form Successfully Saved");
-      })
-      .catch(() => {
-        Error("Failed to create suspect");
-      });
+    saveForm(formData);
   }
   console.log("Form Data : ", formData);
   return (
@@ -103,11 +96,10 @@ function SuspectDetails({ formData, setFormData }) {
             />
           </Labelled>
           <Labelled label="Head of Household">
-            <Input
-              placeholder={"Head of Household"}
+            <Options 
+              options={["Yes","No"]}
               value={formData["headOfHousehold"]}
-              onChange={setData("headOfHousehold")}
-            />
+              setValue={setData("headOfHousehold")}/>
           </Labelled>
         </FormRow>
 

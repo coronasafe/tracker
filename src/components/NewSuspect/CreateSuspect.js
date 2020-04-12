@@ -16,7 +16,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 	const [gender, setGender] = useState(null);
 
 	const handleSubmission = async (values, { setSubmitting }) => {
-		searchPatient(values).then((response)=>{
+		searchPatient({phone_number:values.phone, name:values.name}).then((response)=>{
 			if(!response.data){
 				Error({msg:response})
 			}
@@ -112,7 +112,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 										onBlur={handleBlur('phone')}
 									/>
 									<p className='text-red-500 text-xs italic'>
-										{errors.phone && touched.phone && errors.phone}
+										{errors.phone && touched.phone && errors.phone_number}
 									</p>
 								</div>
 							</div>

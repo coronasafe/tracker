@@ -2,13 +2,22 @@ import React from "react";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 
-export function AsyncDropdown({ setOption, loadOptionsService }) {
+export function AsyncDropdown({ setOption, loadOptionsService, labelKey }) {
   function loadOptions(inputValue) {
     return loadOptionsService(inputValue).then((serviceOptions) => {
-      return serviceOptions.map((option) => ({
-        label: option,
-        value: option,
-      }));
+      return serviceOptions.map((option) => {
+        if (typeof option === "string") {
+          return {
+            label: option,
+            value: option,
+          };
+        } else {
+          return {
+            label: option[labelKey],
+            value: option,
+          };
+        }
+      });
     });
   }
 

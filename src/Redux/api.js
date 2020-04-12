@@ -57,4 +57,8 @@ export default {
         path: '/api/v1/patient',
         method: 'GET'
     },
+    getDistrictsList:{
+        path:"/api/v1/district/",
+        method:"GET"
+    }
 }

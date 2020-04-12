@@ -1,11 +1,11 @@
+import { APIRequest } from "../../../Redux/fireRequest";
+
 const districts = ["Ernakulam", "Calicut", "Trivandrum", "Kollam", "Kannur"];
 
 export function getDistrictOptions(searchText) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(districts);
-    }, 1000);
-  });
+  return APIRequest("getDistrictsList").then(response=>{
+    return response.data.results;
+  })
 }
 
 function getPanchayatOptions(searchText) {

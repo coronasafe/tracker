@@ -48,7 +48,18 @@ export const fireRequest = (
     key, path = [], params = {}, urlParam
 ) => {
     return (dispatch) => {
-        ;
+        dispatch(fetchDataRequest(key));
+        return APIRequest(key,path,params).then((response) => {
+            dispatch(fetchResponseSuccess(key, response.data));
+            return response;
+        }).catch((error)=>{
+            dispatch(fetchDataRequestError(key, error));
+        })
+    };
+};
+
+
+export const APIRequest=(key, path = [], params = {}, urlParam)=>{
         // cancel previous api call
         if (isRunning[key]) {
             isRunning[key].cancel();
@@ -85,15 +96,12 @@ export const fireRequest = (
         }
         const axiosApiCall = axios.create(config)
 
-        dispatch(fetchDataRequest(key));
         return axiosApiCall[request.method.toLowerCase()](request.path, {
             ...params,
             cancelToken: isRunning[key].token
         }).then((response) => {
-            dispatch(fetchResponseSuccess(key, response.data));
             return response;
         }).catch((error) => {
-            dispatch(fetchDataRequestError(key, error));
 
             if (error.response) {
                 // currentUser is ignored because on the first page load 
@@ -102,7 +110,7 @@ export const fireRequest = (
                     if (localStorage.getItem('care_access_token')) {
                         localStorage.removeItem('care_access_token');
                     }
-                    return;
+                    return error;
                 }
 
                 // 400 Bad Request Error
@@ -110,7 +118,7 @@ export const fireRequest = (
                     Notficiation.BadRequest({
                         errs: error.response.data
                     });
-                    return;
+                    return error;
                 }
 
                 // 4xx Errors
@@ -129,7 +137,6 @@ export const fireRequest = (
                         Notficiation.Error(err);
                         return err
                     }
-                    return;
                 }
 
                 // 5xx Errors
@@ -137,9 +144,8 @@ export const fireRequest = (
                     Notficiation.Error({
                         msg: 'Something went Wrong...!'
                     });
-                    return;
+                    return error;
                 }
             }
         });
-    };
-};
+}

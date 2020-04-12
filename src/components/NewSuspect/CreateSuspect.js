@@ -19,7 +19,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 
 	
 	const handleSubmission = (values, { setSubmitting }) => {
-		searchPatient(values).then((response)=>{
+		searchPatient({name:values.name,phone_number:values.phone}).then((response)=>{
 			if(!response || !response.data){
 				Error({msg:response})
 			}
@@ -49,8 +49,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 
 	return (
 		<div
-			className='h-screen overflow-hidden flex items-center justify-center'
-			style={{ background: '#edf2f7' }}>
+			className='h-screen overflow-hidden flex items-center justify-center bg-blue-100'>
 			<Formik
 				initialValues={{
 					name: '',
@@ -101,7 +100,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 								<Labelled label="Gender">
 									<Options options={["Male","Female","Other"]} value={gender} setValue={setGender}/>
 								</Labelled>
-								
+
 							</div>
 
 							<div className='-mx-3 md:flex mb-6'>

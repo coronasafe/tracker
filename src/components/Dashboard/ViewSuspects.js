@@ -6,14 +6,17 @@ import ViewSuspectsTableRow from '../ViewSuspects/TableRow';
 const initPatientParams = {
     facility: "",
     limit: 10,
-    offset: 0
+    offset: 0,
 }
 
 export default function ViewSuspects() {
     const dispatch = useDispatch()
-    const [ patients, setPatients ] = useState([])
+    const [ patients, setPatients ] = useState({})
     const [ patientParams, setPatientParams ] = useState(initPatientParams)
-
+    const { count } = patients
+    const { offset, limit } = patientParams
+    let totalPages = Math.ceil(count/limit);
+    let currPage = offset/limit + 1;
 
     const getPatientsData = async() => {
         try{
@@ -26,26 +29,58 @@ export default function ViewSuspects() {
     }
 
     useEffect( ()=>{
-        getPatientsData()
+        let debounce;
+        debounce = setTimeout(()=>getPatientsData(),500)
+        return (()=>{
+            clearTimeout(debounce)
+        })
     }, [patientParams])
 
     useEffect(() => {
         getPatientsData()
     }, [])
 
-
-    const handleNext = () => {
-        const { next } = patients
-        if(!next) return null;
-        const { offset, limit } = patientParams
-        setPatientParams({ ...patientParams, offset: offset+limit  })
+    const handleChange = (e, number) => {
+        const { name, value, type } = e.target
+        if(number){
+            if(isNaN(value)){
+                e.target.value = patientParams[name]
+                return null
+            }
+        }
+        setPatientParams({
+            ...patientParams,
+            [ name ]: value
+        })
     }
 
-    const handlePrev = () => {
-        const { previous } = patients
-        if(!previous) return null;
-        const { offset, limit } = patientParams
-        setPatientParams({ ...patientParams, offset: offset-limit  })
+    const handlePageChange = (newPage) => {
+        let { offset, limit } = patientParams;
+        totalPages = Math.ceil(count/limit);
+        if( newPage<1 || newPage>totalPages ){
+            return null;
+        }
+        offset = (newPage-1)*limit;
+        setPatientParams({ ...patientParams, offset });
+    }
+
+    const pagination = () => {
+        const { limit, offset } = patientParams
+        return new Array(5).fill(0).map((a,i)=>currPage-2+i).filter(a=>a>0&&a<=totalPages).map(page=>{
+            return currPage===page?
+            <button
+                key={page}
+                onClick={()=>handlePageChange(page)}
+                className="text-sm bg-green-500 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 ">
+                {page}
+            </button>:
+            <button
+                key={page}
+                onClick={()=>handlePageChange(page)}
+                className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 ">
+                {page}
+            </button>
+        })
     }
 
   return(
@@ -93,7 +128,10 @@ export default function ViewSuspects() {
                             </path>
                         </svg>
                     </span>
-                    <input placeholder="Search"
+                    <input placeholder="Facility number"
+                        name="facility"
+                        value={ patientParams.facility }
+                        onChange={(e)=>handleChange(e,true) }
                         className="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
                 </div>
             </div>
@@ -112,6 +150,10 @@ export default function ViewSuspects() {
                                 </th>
                                 <th
                                     className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Facility
+                                </th>
+                                <th
+                                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Added At
                                 </th>
                                 <th
@@ -121,23 +163,24 @@ export default function ViewSuspects() {
                             </tr>
                         </thead>
                         <tbody>
-                            { !patients && "loading"}
+                            { !patients && <div class="lds-dual-ring mx-auto w-full items-center justify-center overflow-hidden flex"></div>}
                             { patients?.results?.map(item=><ViewSuspectsTableRow key={item.id} data={item}/>) }
                         </tbody>
                     </table>
                     <div
                         className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
                         <span className="text-xs xs:text-sm text-gray-900">
-                            {patients && `Showing ${patientParams.offset+1} to ${patientParams.offset + patientParams.limit} of ${patients.count} Entries`}
+                            {patients && `Showing ${offset+1} to ${offset + limit} of ${patients.count} Entries`}
                         </span>
                         <div className="inline-flex mt-2 xs:mt-0">
                             <button
-                                onClick={handlePrev}
+                                onClick={()=>handlePageChange(currPage-1)}
                                 className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
                                 Prev
                             </button>
+                            {patients && pagination()}
                             <button
-                                onClick={handleNext}
+                                onClick={()=>handlePageChange(currPage+1)}
                                 className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
                                 Next
                             </button>

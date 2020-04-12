@@ -31,7 +31,7 @@ function App() {
     if(!refresh){
       return;
     }
-    axios.post('http://api.care.coronasafe.in/api/v1/auth/token/refresh',{
+    axios.post('https://api.care.coronasafe.in/api/v1/auth/token/refresh/',{
       refresh
     }).then(res=>{
       localStorage.setItem('care_access_token',res.data.access)

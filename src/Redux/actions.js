@@ -17,6 +17,10 @@ export const searchPatient = (form) => {
     return fireRequest("searchPatient", [] ,form)
 }
 
+export const getPatient = (urlParam) => {
+    return fireRequest('getPatient', [], {}, urlParam);
+};
+
 export const setCurrentPatient = (patientData)=>{
     return (dispatch)=>{
         dispatch({
@@ -27,5 +31,5 @@ export const setCurrentPatient = (patientData)=>{
     }
 }
 export const getPatients = (params) => {
-    return fireRequest("getPatients", [], params)
+    return fireRequest("patientList", [], params)
 };

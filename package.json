@@ -26,7 +26,7 @@
     "build:css": "postcss src/tailwind.css -o src/index.css",
     "watch:css": "postcss src/tailwind.css -o src/index.css -w",
     "start": "concurrently --kill-others \"npm run watch:css\" \"react-scripts start\"",
-    "build": "concurrently --kill-others \"npm run build:css\" \"react-scripts build\"",
+    "build": "npm run build:css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

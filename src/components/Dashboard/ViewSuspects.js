@@ -66,17 +66,16 @@ export default function ViewSuspects() {
 
     const pagination = () => {
         const { limit, offset } = patientParams
-        
-        console.log(totalPages,count,limit,offset)
-        
         return new Array(5).fill(0).map((a,i)=>currPage-2+i).filter(a=>a>0&&a<=totalPages).map(page=>{
             return currPage===page?
             <button
+                key={page}
                 onClick={()=>handlePageChange(page)}
                 className="text-sm bg-green-500 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 ">
                 {page}
             </button>:
             <button
+                key={page}
                 onClick={()=>handlePageChange(page)}
                 className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 ">
                 {page}

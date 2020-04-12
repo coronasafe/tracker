@@ -17,7 +17,7 @@ export const searchPatient = (form) => {
     return fireRequest("searchPatient", [] ,form)
 }
 
-export const getPatient = (urlParam: object) => {
+export const getPatient = (urlParam) => {
     return fireRequest('getPatient', [], {}, urlParam);
 };
 

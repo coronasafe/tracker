@@ -1,9 +1,10 @@
 import React from 'react'
+import { navigate } from 'hookrouter'
 
 const ViewSuspectsTableRow = (props) => {
-    const { name, district, facility, created_date, is_active } = props.data
+    const { id, name, district, facility, created_date, is_active } = props.data
     return (
-        <tr>
+        <tr className="cursor-pointer" onClick={()=>navigate("/suspect/"+id)}>
             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <div className="flex items-center">
                     <div className="ml-3">

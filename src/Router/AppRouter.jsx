@@ -13,7 +13,7 @@ const routes = {
 	'/suspect/details': () => <SuspectDetails />,
 	'/suspect/view': () => <ViewSuspects />,
 	'/create-user': () => <UserAssign />,
-	'/suspect-details-card': () => <SuspectDetailsCard />,
+'/suspect/:suspectId': ({suspectId}) => <SuspectDetailsCard suspectId={suspectId}/>,
 };
 
 const AppRouter = () => {

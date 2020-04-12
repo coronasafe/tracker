@@ -28,7 +28,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 					gender
 				})
 					navigate("/suspect/details");
-				
+
 			}
 			else if(response.data.count!==0){
 				Error({msg:"Patient already exists."})
@@ -41,8 +41,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 
 	return (
 		<div
-			className='h-screen overflow-hidden flex items-center justify-center'
-			style={{ background: '#edf2f7' }}>
+			className='h-screen overflow-hidden flex items-center justify-center bg-blue-100'>
 			<Formik
 				initialValues={{
 					name: '',
@@ -93,7 +92,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 								<Labelled label="Gender">
 									<Options options={["Male","Female","Other"]} value={gender} setValue={setGender}/>
 								</Labelled>
-								
+
 							</div>
 
 							<div className='-mx-3 md:flex mb-6'>

@@ -17,6 +17,19 @@ export default {
         method: 'POST'
     },
 
+    searchPatient:{
+        path:'api/v1/patient/search/',
+        method: 'GET'
+    },
+
+    getPatient: {
+        path: '/api/v1/patient/{id}/'
+    },
+    
+    patientList: {
+        path: "/api/v1/patient"
+    },
+
     // User Endpoints: not sure if we need them
     currentUser: {
         path: '/api/v1/users/getcurrentuser',
@@ -44,17 +57,9 @@ export default {
         path: '/api/v1/users',
         method: 'PATCH'
     },
-    
+
     deleteUser: {
         path: '/api/v1/users',
         method: 'DELETE'
-    },
-    searchPatient:{
-        path:'api/v1/patient/search/',
-        method: 'GET'
-    },
-    getPatients: {
-        path: '/api/v1/patient',
-        method: 'GET'
     },
 }

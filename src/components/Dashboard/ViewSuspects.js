@@ -11,7 +11,7 @@ const initPatientParams = {
 
 export default function ViewSuspects() {
     const dispatch = useDispatch()
-    const [ patients, setPatients ] = useState([])
+    const [ patients, setPatients ] = useState()
     const [ patientParams, setPatientParams ] = useState(initPatientParams)
 
 
@@ -121,7 +121,7 @@ export default function ViewSuspects() {
                             </tr>
                         </thead>
                         <tbody>
-                            { !patients && "loading"}
+                            { !patients && <div class="lds-dual-ring mx-auto w-full items-center justify-center overflow-hidden flex"></div>}
                             { patients?.results?.map(item=><ViewSuspectsTableRow key={item.id} data={item}/>) }
                         </tbody>
                     </table>

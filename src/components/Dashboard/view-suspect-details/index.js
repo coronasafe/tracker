@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getPatient } from '../../../Redux/actions'
+import { useDispatch } from 'react-redux'
 
 import MedicalHistory from './medical-history';
 
-export default function UserAssign() {
-	return (
-		<div className='h-auto w-screen px-12 flex justify-center'>
-			<div class='max-w-screen rounded overflow-hidden shadow-lg'>
-				<div class='px-6 py-4 w-screen'>
-					<div class='font-bold text-xl mb-2'>Details</div>
+export default function SuspectDetails(props) {
+	console.log(props.suspectId)
+  const dispatch = useDispatch()
+	const [ patientData, setPatientData ] = useState()
+	const getSuspectData = async() => {
+			try{
+					const res = await dispatch(getPatient({id: props.suspectId}))
+					setPatientData(res.data)
+			}
+			catch(err){
+					console.log(err)
+			}
+	}
+	useEffect(() => {
+			getSuspectData()
+	}, [])
+	return !patientData ? (<div class="lds-dual-ring mx-auto h-screen w-full items-center justify-center overflow-hidden flex"></div>)
+	: (
+		<div className='h-full w-full flex justify-center py-5 bg-gray-200'>
+			<div class='w-auto mx-12 rounded overflow-hidden shadow-lg  bg-white'>
+				<div class='px-6 py-4'>
+					<div class='font-bold text-xl mb-2'>Patient Information</div>
 					<div class='w-screen'>
 						<div class='px-4 py-5 border-b border-gray-200 sm:px-6'>
 							<h3 class='text-lg leading-6 font-medium text-gray-900'>Amal</h3>
@@ -131,7 +149,7 @@ export default function UserAssign() {
 				<div class='px-6 py-4 w-screen'>
 					<div class='font-bold text-xl mb-2'>Medical History</div>
 				</div>
-				<MedicalHistory />
+				{patientData.medicalHistory.map(medicalHistory => <MedicalHistory medicalHistory={medicalHistory}/>)}
 			</div>
 		</div>
 	);

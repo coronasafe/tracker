@@ -76,3 +76,9 @@ export function getUnfilledFields(data) {
 export function printDate(date){
   return new Date(date).getDate()+"-"+new Date(date).getUTCMonth()+"-"+new Date(date).getFullYear();
 }
+
+export function searchStringMatch(compareString,searchString){
+  let a=compareString.toUpperCase();
+  let b=searchString.toUpperCase();
+  return a.includes(b);
+}

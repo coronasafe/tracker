@@ -23,6 +23,14 @@ import { navigate } from "hookrouter";
 import { Success, Error } from "../../../util/Notifications";
 
 function SuspectDetails({ formData, setFormData }) {
+  const [LSGOptions, setLSGOptions] = useState([]);
+  useEffect(()=>{
+    if(formData["district"] && formData["typeOfLSG"]){
+      getLSGNameOptions(formData["typeOfLSG"],formData["district"]).then((retrivedOptions)=>{
+        setLSGOptions(retrivedOptions);
+      });
+    }
+  },[formData])
   useEffect(() => {
     if (!formData.typeOfLSG) {
       setFormData({
@@ -106,20 +114,26 @@ function SuspectDetails({ formData, setFormData }) {
           </Labelled>
         </FormRow>
 
-        <FormRow>
+        <FormRow totalWidth={2}>
           <Labelled label="Type of LSG *">
             <Dropdown
-              options={["Panchayat", "Muncipality", "Corporation"]}
+              options={["Panchayat", "Municipality", "Corporation"]}
               currentOption={formData["typeOfLSG"]}
               setOption={setData("typeOfLSG")}
             />
           </Labelled>
-          <Labelled label={"Name of " + formData["typeOfLSG"] + " *"}>
-            <AsyncDropdown
-              setOption={setData("nameOfLSG")}
-              loadOptionsService={getLSGNameOptions(formData["typeOfLSG"])}
-            />
-          </Labelled>
+          {
+            (LSGOptions) ? (
+              <Labelled label={"Name of " + formData["typeOfLSG"] + " *"}>
+                <Dropdown
+                  options={LSGOptions}
+                  currentOption={formData["nameOfLSG"]}
+                  setOption={setData("nameOfLSG")}
+                />
+              </Labelled>
+             ) : <div/>
+          }
+           
         </FormRow>
 
         <FormRow>

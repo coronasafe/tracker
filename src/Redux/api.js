@@ -58,7 +58,7 @@ export default {
         method: 'GET'
     },
     getDistrictsList:{
-        path:"/api/v1/district/",
+        path:"/api/v1/district",
         method:"GET"
-    }
+    },
 }

@@ -49,10 +49,12 @@ export default {
         path: '/api/v1/users',
         method: 'DELETE'
     },
-
+    searchPatient:{
+        path:'api/v1/patient/search/',
+        method: 'GET'
+    },
     getPatients: {
         path: '/api/v1/patient',
         method: 'GET'
     },
-
 }

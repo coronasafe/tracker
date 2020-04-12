@@ -1,25 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import DatePicker from 'react-date-picker';
+import {connect} from 'react-redux';
 import { Formik } from 'formik';
 import { RadioGroup, RadioButton } from 'react-radio-buttons';
-
+import {Success, Error} from '../../util/Notifications';
 import createSuspectValidationSchema from '../../util/create-suspect.validation';
+import { searchPatient, setCurrentPatient } from '../../Redux/actions';
+import Labelled from '../common/Labelled';
+import Options from '../common/Options';
+import DatePickerComponent from '../common/DatePicker';
+import { navigate } from 'hookrouter';
 
-export default function CreateSuspect() {
+function CreateSuspect({searchPatient,setCurrentPatient}) {
 	const [check, setCheck] = useState({ dob: new Date(1991, 0) });
 	const [gender, setGender] = useState(null);
 
-	const handleGenderChange = (value) => {
-		setGender(value);
-	};
-
 	const handleSubmission = async (values, { setSubmitting }) => {
-		/*
-		 * values contain name and phone
-		 */
-		console.log(values, gender, check.dob);
+		searchPatient(values).then((response)=>{
+			if(!response.data){
+				Error({msg:response})
+			}
+			else if(response.data.count===0){
+				Success({msg:"Patient not found."})
+				setCurrentPatient({
+					...values,
+					dateOfBirth:check.dob,
+					gender
+				})
+					navigate("/suspect/details");
+				
+			}
+			else if(response.data.count!==0){
+				Error({msg:"Patient already exists."})
+			}
+		})
 		setSubmitting(false);
 	};
+
+
 
 	return (
 		<div
@@ -68,62 +86,14 @@ export default function CreateSuspect() {
 								</div>
 							</div>
 							<div className='-mx-3 md:flex mb-2'>
-								<div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-									<label
-										className='block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2'
-										for='grid-city'>
-										Date of Birth
-									</label>
-									<DatePicker
-										className='appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4'
-										onChange={(date) => setCheck({ dob: date })}
-										value={check.dob}
-									/>
-									<p className='text-red-500 text-xs italic'>
-										{!check.dob && 'Please select a date'}
-									</p>
-								</div>
-								<div class='md:w-1/2 px-3 mb-6 md:mb-0'>
-									<label
-										className='block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2'
-										for='grid-city'>
-										Gender
-									</label>
-									<div className='block w-full rounded py-3 px-4'>
-										<RadioGroup onChange={handleGenderChange} horizontal>
-											<RadioButton
-												padding={8}
-												iconInnerSize={1}
-												iconSize={1}
-												rootColor='black'
-												pointColor='#4299e1'
-												value='Male'>
-												Male
-											</RadioButton>
-											<RadioButton
-												padding={8}
-												iconInnerSize={1}
-												iconSize={1}
-												rootColor='black'
-												pointColor='#4299e1'
-												value='Female'>
-												Female
-											</RadioButton>
-											<RadioButton
-												padding={8}
-												iconInnerSize={1}
-												iconSize={1}
-												rootColor='black'
-												pointColor='#4299e1'
-												value='Other'>
-												Other
-											</RadioButton>
-										</RadioGroup>
-										<p className='text-red-500 text-xs italic'>
-											{!gender && 'Please select a gender'}
-										</p>
-									</div>
-								</div>
+
+								<Labelled label="Date of Birth">
+									<DatePickerComponent value={check.dob} onChange={(date) => setCheck({ dob: date })}/>
+								</Labelled>
+								<Labelled label="Gender">
+									<Options options={["Male","Female","Other"]} value={gender} setValue={setGender}/>
+								</Labelled>
+								
 							</div>
 
 							<div className='-mx-3 md:flex mb-6'>
@@ -165,3 +135,21 @@ export default function CreateSuspect() {
 		</div>
 	);
 }
+function mapStateToProps(state){
+	console.log(state)
+	return {
+		searchPatientState:state.searchPatient
+	};
+}
+function mapDispatchToProps(dispatch){
+  return {
+    searchPatient:(formData)=>{
+      return searchPatient(formData)(dispatch);
+	},
+	setCurrentPatient:(patientData)=>{
+		return setCurrentPatient(patientData)(dispatch);
+	}
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CreateSuspect);

@@ -104,10 +104,6 @@ const sampleInput = {
   remarks: "qwasdde",
 };
 const sampleOutput = {
-  state_object: {
-    //MISSING
-    name: "string",
-  },
   disease_status: "SUSPECTED", //MISSING
   source: "CARE", //MISSING
   medical_history: [{}], //MISSING

@@ -61,4 +61,8 @@ export default {
         path:"/api/v1/district",
         method:"GET"
     },
+    getFacilitiesList:{
+        path:"/api/v1/facility",
+        method:"GET"
+    },
 }

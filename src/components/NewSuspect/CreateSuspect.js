@@ -20,7 +20,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 	
 	const handleSubmission = (values, { setSubmitting }) => {
 		searchPatient(values).then((response)=>{
-			if(!response.data){
+			if(!response || !response.data){
 				Error({msg:response})
 			}
 			else if(response.data.count===0){

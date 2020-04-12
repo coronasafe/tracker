@@ -66,7 +66,11 @@ export default {
         method:"GET"
     },
     createPatient:{
-        path:"/api/v1/patient/",
+        path:"/api/v1/patient",
+        method:"POST"
+    },
+    createConsultation:{
+        path:"/api/v1/consultation",
         method:"POST"
     }
 }

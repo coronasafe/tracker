@@ -37,6 +37,51 @@ export function AsyncDropdown({
   );
 }
 
+export function MultiDropdown({options,setValue,value,labelKey="name"}){
+  let reactSelectOptions = options.map((option) => {
+    if (typeof option === "string") {
+      return {
+        label: option,
+        value: option,
+      };
+    } else {
+      return {
+        label: option[labelKey],
+        value: option,
+      };
+    }
+  });
+  let currentValue;
+  if(!value || value.length===0){
+    currentValue=[]
+  }
+  else if(typeof value[0] === "string"){
+    currentValue = value.map((valueOption)=>({
+      label: valueOption,
+      value: valueOption,
+    }));
+  }
+  else{
+    currentValue = value.map((currentOption)=>({
+      label:currentOption[labelKey],
+      value:currentOption
+    }));
+  }
+
+
+  return (
+    <div className="relative">
+      <Select
+        value={currentValue}
+        options={reactSelectOptions}
+        onChange={(newOptions) => {
+          setValue(newOptions.map((option)=>option.value));
+        }}
+        isMulti
+      />
+    </div>
+  );
+}
 function Dropdown({ options, setOption, currentOption, labelKey = "name"}) {
   let reactSelectOptions = options.map((option) => {
     if (typeof option === "string") {

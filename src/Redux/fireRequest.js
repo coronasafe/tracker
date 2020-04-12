@@ -70,6 +70,9 @@ export const APIRequest=(key, path = [], params = {}, urlParam)=>{
         if (path.length > 0) {
             request.path += '/' + path.join('/');
         }
+        if(request.path[request.path.length-1]!=="/"){
+            request.path = request.path+"/";
+        }
         if (request.method === undefined || request.method === 'GET') {
             request.method = 'GET';
             const qs = Object.keys(params).map((k) => 

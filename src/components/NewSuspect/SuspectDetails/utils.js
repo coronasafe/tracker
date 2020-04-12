@@ -1,4 +1,5 @@
 import React from "react";
+import { SymptomOptions } from "./CommonSection/constants";
 
 function getLabelString(field) {
   let labelString = field
@@ -89,47 +90,73 @@ export function searchStringMatch(compareString, searchString) {
   return a.includes(b);
 }
 
-const sampleInput = {
-  type: "Suspect",
-  covidPatientCode: "qwe",
-  relationToPositivePatient: "Family Member",
-  dateOfLastContact: "2020-04-09T18:30:00.000Z",
-  modeOfContact:
-    "3. Touched or cleaned the linens/clothes/or dishes of the patient",
-  conditionOfContact: "Asymptomatic",
-  sampleSent: "No",
-  homeIsolation: "No",
-  hospitalAdmission: "No",
-  dateOfIsolation: "2020-04-30T18:30:00.000Z",
-  remarks: "qwasdde",
-};
-const sampleOutput = {
-  disease_status: "SUSPECTED", //MISSING
-  source: "CARE", //MISSING
-  medical_history: [{}], //MISSING
-  nearest_facility_object: {
-    //SAME AS HC?
-  },
-  contacted_patients: [{}], //MISSING
-  nationality: "string", //Missing
-  passport_no: "string", //Missing
-  aadhar_no: "string", //Missing
-  is_medical_worker: true, //Missing
-  blood_group: "A+", //Missing
-  estimated_contact_date: "2020-04-12T08:27:03Z", //FIeld?
-  present_health: "string", //Field?
-  ongoing_medication: "string", //Missing
-  has_SARI: true, //Missing
-  number_of_aged_dependents: -2147483648, //Missing
-  number_of_chronic_diseased_dependents: -2147483648, //Missing
-  is_active: true, //Missing
-};
 const genderMap = {
   Male: 1,
   Female: 2,
   Other: 3,
 };
-export function transformSubmitRequest(inputRequest) {
+const symptomsMap = (symptoms) => {
+  return symptoms.map((symptom) => {
+    return SymptomOptions.indexOf(symptom) + 1;
+  });
+};
+
+const sampleInput = {
+  name: "123",
+  phone: "+919744859241",
+  dateOfBirth: "1990-12-31T18:30:00.000Z",
+  gender: "Male",
+  typeOfLSG: "Municipality",
+  occupation: "Student",
+  headOfHousehold: "Yes",
+  address: "asd",
+  district: { id: 14, name: "Kasargode", state: 1 },
+  nameOfLSG: {
+    id: 979,
+    name: "Balal  Grama Panchayat, Kasargode District",
+    body_type: 1,
+    localbody_code: "G140501",
+    district: 14,
+  },
+  typeOfHC: "Educational Inst",
+  type: "Passenger",
+  nameOfHC: {
+    id: 235,
+    name: "Edu New",
+    local_body: 341,
+    district: 13,
+    state: 1,
+    facility_type: "Educational Inst",
+    address: "New Edu Kannur",
+    location: { latitude: 11.8762254, longitude: 75.3738043 },
+    oxygen_capacity: 1234,
+    phone_number: "+918798798798",
+    local_body_object: {
+      id: 341,
+      name: "Chembilode  Grama Panchayat, Kannur District",
+      body_type: 1,
+      localbody_code: "G130605",
+      district: 13,
+    },
+    district_object: { id: 13, name: "Kannur", state: 1 },
+    state_object: { id: 1, name: "Kerala" },
+    modified_date: "2020-04-11T21:48:25.153337+05:30",
+    created_date: "2020-04-11T21:17:02.173062+05:30",
+  },
+  dateOfDeparture: "2020-04-10T18:30:00.000Z",
+  dateOfReciept: "2020-04-08T18:30:00.000Z",
+  countryOfVisit: "US",
+  symptoms: ["Fever", "Breathlessness"],
+  sampleSent: "Yes",
+  lab: "Regional VRDL Thiruvananthapuram",
+  labResult: "Negative",
+  homeIsolation: "No",
+  hospitalAdmission: "Yes",
+  dateOfIsolation: "2020-04-21T18:30:00.000Z",
+  remarks: "sdlfksndlknskdfgnsd",
+};
+
+export function transformPatientCreateRequest(inputRequest) {
   let outputRequest = {
     phone_number: inputRequest.phone,
     meta_info: {
@@ -153,4 +180,31 @@ export function transformSubmitRequest(inputRequest) {
     contact_with_suspected_carrier: inputRequest.typeOfContact === "Secondary",
   };
   return outputRequest;
+}
+
+export function transformConsultationCreateRequest(inputRequest, patientId) {
+  return {
+    symptoms: symptomsMap(inputRequest.symptoms),
+    suggestion: inputRequest.homeIsolation === "Yes" ? "HI" : "-",
+    patient: patientId,
+    facility: inputRequest.nameOfHC.id,
+    admitted: inputRequest.hospitalAdmission === "Yes",
+    admission_date: new Date(inputRequest.dateOfIsolation).toISOString(),
+  };
+}
+
+export function transformTestSampleCreateRequest(
+  inputRequest,
+  patientId,
+  consultationId
+) {
+  return {
+    facility_object: {
+      name: inputRequest.lab,
+    },
+    result: inputRequest.labResult.toUpperCase(),
+    patient: patientId,
+    consultation: consultationId,
+    has_sari: inputRequest.symptoms.includes("SARI"),
+  };
 }

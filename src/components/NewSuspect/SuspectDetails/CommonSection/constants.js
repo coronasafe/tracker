@@ -10,11 +10,22 @@ export const SymptomOptions = [
   "Abdominal Discomfort",
   "Vomiting/diarrhoea",
   "Others",
-  "Sari",
+  "SARI",
   "Sputum",
   "Nausea",
   "Chest Pain",
   "Hemoptysis",
   "Nasal Discharge",
   "Body Ache",
+];
+export const LabOptions = [
+  "Regional VRDL Kozhikode",
+  "Regional VRDL Thrissur",
+  "Regional VRDL Thiruvananthapuram",
+  "NIV Alappuzha Unit",
+  "State Public Health Lab, Thiruvananthapuram",
+  "Rajeev Gandhi Centre for Biotechnology, Thiruvananthapuram",
+  "Malabar Cancer Centre",
+  "Interuniversity Centre for Biomedical Research, Kottayam",
+  "Sree Chitra Institute of Medical Science and Technology, Thiruvananthapuram",
 ];

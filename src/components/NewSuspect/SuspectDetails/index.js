@@ -17,9 +17,9 @@ import { OccupationOptions, HealthCentreTypeOptions } from "./constants";
 import { getUnfilledFields, getErrorText, printDate } from "./utils";
 import { connect } from "react-redux";
 import { setCurrentPatient } from "../../../Redux/actions";
-
 import { navigate } from "hookrouter";
 import Options from "../../common/Options";
+import { Success, Error } from "../../../util/Notifications";
 
 function SuspectDetails({ formData, setFormData }) {
   const [LSGOptions, setLSGOptions] = useState([]);
@@ -68,7 +68,13 @@ function SuspectDetails({ formData, setFormData }) {
     };
   }
   function submitForm() {
-    saveForm(formData);
+    saveForm(formData)
+      .then(() => {
+        Success({ msg: "Patient creation success" });
+      })
+      .catch(() => {
+        Error({ msg: "Failed to create patient" });
+      });
   }
   console.log("Form Data : ", formData);
   return (
@@ -96,10 +102,11 @@ function SuspectDetails({ formData, setFormData }) {
             />
           </Labelled>
           <Labelled label="Head of Household">
-            <Options 
-              options={["Yes","No"]}
+            <Options
+              options={["Yes", "No"]}
               value={formData["headOfHousehold"]}
-              setValue={setData("headOfHousehold")}/>
+              setValue={setData("headOfHousehold")}
+            />
           </Labelled>
         </FormRow>
 

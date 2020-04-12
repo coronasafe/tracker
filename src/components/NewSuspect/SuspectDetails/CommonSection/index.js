@@ -1,21 +1,25 @@
 import React from "react";
 import FormRow from "../../../common/FormRow";
 import Labelled from "../../../common/Labelled";
-import Dropdown, { AsyncDropdown } from "../../../common/Dropdown";
+import Dropdown, { MultiDropdown } from "../../../common/Dropdown";
 import Textarea from "../../../common/Textarea";
-import { HomeIsolationOptions, HospitalAdmissionOptions, SymptomOptions } from "./constants";
+import {
+  HomeIsolationOptions,
+  HospitalAdmissionOptions,
+  SymptomOptions,
+  LabOptions,
+} from "./constants";
 import { getSeverityOfContact } from "./utils";
 import DatePicker from "../../../common/DatePicker";
-import { getLabOptions } from "./service";
 
 function CommonSection({ data, setData }) {
   return (
     <>
-      <FormRow totalWidth={3}>
+      <FormRow>
         <Labelled label="Symptoms">
-        <Dropdown
-            currentOption={data["symptoms"]}
-            setOption={setData("symptoms")}
+          <MultiDropdown
+            value={data["symptoms"]}
+            setValue={setData("symptoms")}
             options={SymptomOptions}
           />
         </Labelled>
@@ -30,9 +34,10 @@ function CommonSection({ data, setData }) {
         </Labelled>
         {data["sampleSent"] === "Yes" ? (
           <Labelled label="Lab">
-            <AsyncDropdown
+            <Dropdown
+              currentOption={data["lab"]}
               setOption={setData("lab")}
-              loadOptionsService={getLabOptions}
+              options={LabOptions}
             />
           </Labelled>
         ) : (
@@ -44,7 +49,7 @@ function CommonSection({ data, setData }) {
             <Dropdown
               currentOption={data["labResult"]}
               setOption={setData("labResult")}
-              options={["Not Determined Yet", "Positive", "Negative"]}
+              options={["Positive", "Negative", "Awaiting", "Invalid"]}
             />
           </Labelled>
         ) : (

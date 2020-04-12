@@ -4,9 +4,9 @@ import MedicalHistory from './medical-history';
 
 export default function UserAssign() {
 	return (
-		<div className='h-auto w-full px-12 flex justify-center'>
-			<div class='max-w-auto rounded overflow-hidden shadow-lg'>
-				<div class='px-6 py-4'>
+		<div className='h-auto w-screen px-12 flex justify-center'>
+			<div class='max-w-screen rounded overflow-hidden shadow-lg'>
+				<div class='px-6 py-4 w-screen'>
 					<div class='font-bold text-xl mb-2'>Details</div>
 					<table class='table-auto'>
 						<tbody>

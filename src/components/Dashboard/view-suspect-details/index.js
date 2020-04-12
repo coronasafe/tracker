@@ -189,11 +189,7 @@ export default function SuspectDetails(props) {
 				<div class='px-6 py-4 w-screen'>
 					<div class='font-bold text-xl mb-2'>Medical History</div>
 				</div>
-<<<<<<< HEAD
-				{patientData.medical_history.map(medicalHistory => <MedicalHistory medicalHistory={medicalHistory}/>)}
-=======
 				{/* {patientData?.medical_history?.map(medicalHistory => <MedicalHistory medicalHistory={medicalHistory}/>)} */}
->>>>>>> 33901c71e9f0031912cc21e21147fb8e1f3af729
 			</div>
 		</div>
 	);

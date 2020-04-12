@@ -72,3 +72,7 @@ export function getUnfilledFields(data) {
   let missingFields = requiredFields.filter((field) => !data[field]);
   return missingFields;
 }
+
+export function printDate(date){
+  return new Date(date).getDate()+"-"+new Date(date).getUTCMonth()+"-"+new Date(date).getFullYear();
+}

@@ -49,4 +49,9 @@ export default {
         method: 'DELETE'
     },
 
+    searchPatient:{
+        path:'api/v1/patient/search/',
+        method: 'GET'
+    }
+
 }

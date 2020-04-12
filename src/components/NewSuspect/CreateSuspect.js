@@ -112,7 +112,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 										onBlur={handleBlur('phone')}
 									/>
 									<p className='text-red-500 text-xs italic'>
-										{errors.phone && touched.phone && errors.phone_number}
+										{errors.phone && touched.phone && errors.phone}
 									</p>
 								</div>
 							</div>

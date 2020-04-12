@@ -5,6 +5,7 @@ import CreateSuspect from '../components/NewSuspect/CreateSuspect';
 import SuspectDetails from '../components/NewSuspect/SuspectDetails';
 import ViewSuspects from '../components/Dashboard/ViewSuspects';
 import UserAssign from '../components/Account/UserAssign';
+import SuspectDetailsCard from '../components/Dashboard/view-suspect-details';
 
 const routes = {
 	'/': () => <div className='h-screen flex justify-center py-16'>Home</div>,
@@ -12,6 +13,7 @@ const routes = {
 	'/suspect/details': () => <SuspectDetails />,
 	'/suspect/view': () => <ViewSuspects />,
 	'/create-user': () => <UserAssign />,
+	'/suspect-details-card': () => <SuspectDetailsCard />,
 };
 
 const AppRouter = () => {

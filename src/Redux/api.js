@@ -44,9 +44,15 @@ export default {
         path: '/api/v1/users',
         method: 'PATCH'
     },
+    
     deleteUser: {
         path: '/api/v1/users',
         method: 'DELETE'
+    },
+
+    getPatients: {
+        path: '/api/v1/patient',
+        method: 'GET'
     },
 
 }

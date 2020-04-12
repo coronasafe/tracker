@@ -1,6 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getPatients } from '../../Redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import ViewSuspectsTableRow from '../ViewSuspects/TableRow';
+
+const initPatientParams = {
+    facility: "",
+    limit: 10,
+    offset: 0
+}
 
 export default function ViewSuspects() {
+    const dispatch = useDispatch()
+    const [ patients, setPatients ] = useState([])
+    const [ patientParams, setPatientParams ] = useState(initPatientParams)
+
+
+    const getPatientsData = async() => {
+        try{
+            const res = await dispatch(getPatients(patientParams))
+            setPatients(res.data)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
+    useEffect( ()=>{
+        getPatientsData()
+    }, [patientParams])
+
+    useEffect(() => {
+        getPatientsData()
+    }, [])
+
+
+    const handleNext = () => {
+        const { next } = patients
+        if(!next) return null;
+        const { offset, limit } = patientParams
+        setPatientParams({ ...patientParams, offset: offset+limit  })
+    }
+
+    const handlePrev = () => {
+        const { previous } = patients
+        if(!previous) return null;
+        const { offset, limit } = patientParams
+        setPatientParams({ ...patientParams, offset: offset-limit  })
+    }
+
   return(
     <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
@@ -61,7 +108,7 @@ export default function ViewSuspects() {
                                 </th>
                                 <th
                                     className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Type
+                                    District
                                 </th>
                                 <th
                                     className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -74,46 +121,23 @@ export default function ViewSuspects() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <div className="flex items-center">
-                                        <div className="ml-3">
-                                            <p className="text-gray-900 whitespace-no-wrap">
-                                                Vera Carpenter
-                                            </p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p className="text-gray-900 whitespace-no-wrap">Admin</p>
-                                </td>
-                                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p className="text-gray-900 whitespace-no-wrap">
-                                        Jan 21, 2020
-                                    </p>
-                                </td>
-                                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span
-                                        className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                        <span aria-hidden
-                                            className="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                        <span className="relative">Activo</span>
-                                    </span>
-                                </td>
-                            </tr>
+                            { !patients && "loading"}
+                            { patients?.results?.map(item=><ViewSuspectsTableRow key={item.id} data={item}/>) }
                         </tbody>
                     </table>
                     <div
                         className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
                         <span className="text-xs xs:text-sm text-gray-900">
-                            Showing 1 to 4 of 50 Entries
+                            {patients && `Showing ${patientParams.offset+1} to ${patientParams.offset + patientParams.limit} of ${patients.count} Entries`}
                         </span>
                         <div className="inline-flex mt-2 xs:mt-0">
                             <button
+                                onClick={handlePrev}
                                 className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
                                 Prev
                             </button>
                             <button
+                                onClick={handleNext}
                                 className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
                                 Next
                             </button>

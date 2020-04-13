@@ -160,7 +160,7 @@ export function transformPatientCreateRequest(inputRequest) {
   let outputRequest = {
     phone_number: inputRequest.phone,
     meta_info: {
-      occupation: inputRequest.occupation.toUpperCase(),
+      occupation: inputRequest.occupation.toUpperCase().replace(/ /g, "_").split("/")[0],
       head_of_household: inputRequest.headOfHousehold === "Yes",
     },
     name: inputRequest.name,
@@ -176,6 +176,7 @@ export function transformPatientCreateRequest(inputRequest) {
     local_body: inputRequest.nameOfLSG.id,
     district: inputRequest.district.id,
     state: inputRequest.district.state,
+    source: "COVID_TRACKER",
     contact_with_confirmed_carrier: inputRequest.typeOfContact === "Primary",
     contact_with_suspected_carrier: inputRequest.typeOfContact === "Secondary",
   };

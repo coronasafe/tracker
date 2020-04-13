@@ -15,7 +15,7 @@ function ExistingSuspectsPopup({ existingSuspects, onClose, onOverride }) {
           <Table rows={existingSuspects} config={existingSuspectsConfig} />
         </div>
         <br />
-        <Button text="Override and create" onClick={onOverride} />
+        {/*<Button text="Override and create" onClick={onOverride} />*/}
       </div>
     </Modal>
   );

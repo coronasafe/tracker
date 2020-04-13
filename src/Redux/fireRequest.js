@@ -49,7 +49,7 @@ export const fireRequest = (
 ) => {
     return (dispatch) => {
         dispatch(fetchDataRequest(key));
-        return APIRequest(key,path,params).then((response) => {
+        return APIRequest(key,path,params,urlParam).then((response) => {
             dispatch(fetchResponseSuccess(key, response.data));
             return response;
         }).catch((error)=>{
@@ -75,7 +75,7 @@ export const APIRequest=(key, path = [], params = {}, urlParam)=>{
         }
         if (request.method === undefined || request.method === 'GET') {
             request.method = 'GET';
-            const qs = Object.keys(params).map((k) => 
+            const qs = Object.keys(params).map((k) =>
                             encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
                             .join('&');
             if (qs !== '') {
@@ -107,7 +107,7 @@ export const APIRequest=(key, path = [], params = {}, urlParam)=>{
         }).catch((error) => {
 
             if (error.response) {
-                // currentUser is ignored because on the first page load 
+                // currentUser is ignored because on the first page load
                 // 403 error is displayed for invalid credential.
                 if (error.response.status === 403 && key === "currentUser") {
                     if (localStorage.getItem('care_access_token')) {

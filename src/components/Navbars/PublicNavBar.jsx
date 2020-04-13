@@ -11,10 +11,6 @@ export default function PublicNavBar(){
            link: '/login',
            title: 'Login'
          },
-         {
-           link: '/contact',
-           title: 'Contact'
-         },
        ].map(route=>(
          <A className="no-underline text-teal-dark border-b-2 border-teal-dark uppercase tracking-wide font-bold text-xs py-3 mr-8"
                   href={route.link}

@@ -87,7 +87,7 @@ function SuspectDetails({ formData, setFormData }) {
         <FormRow bordered>
           <Labelled label="Name">{formData.name}</Labelled>
           <Labelled label="Date of birth">
-            {printDate(formData.dateOfBirth)}
+            {printDate(formData.dob)}
           </Labelled>
           <Labelled label="Gender">{formData.gender}</Labelled>
           <Labelled label="Phone Number">{formData.phone}</Labelled>

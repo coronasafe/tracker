@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import MedicalHistory from './medical-history';
 
-export default function SuspectDetails(props) {
+export default function ViewSuspectDetails(props) {
   	const dispatch = useDispatch()
 	const [ patientData, setPatientData ] = useState({})
 	const getSuspectData = async() => {

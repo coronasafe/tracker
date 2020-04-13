@@ -23,20 +23,12 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 			}
 			else if(response.data.count===0){
 				Success({msg:"Patient not found."})
-				setCurrentPatient({
-					...values,
-					dateOfBirth:check.dob,
-					gender
-				})
+				setCurrentPatient(values)
 					navigate("/suspect/details");
 			}
 			else if(response.data.count!==0){
 				Error({msg:"Patient already exists."})
-				setCurrentPatient({
-					...values,
-					dateOfBirth:check.dob,
-					gender
-				})
+				setCurrentPatient(values)
 				setExistingSuspects(response.data.results);
 			}
 		})
@@ -52,6 +44,8 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 				initialValues={{
 					name: '',
 					phone: '',
+					dob: '',
+					gender: ''
 				}}
 				validationSchema={createSuspectValidationSchema}
 				onSubmit={(values, { setSubmitting }) => {
@@ -66,6 +60,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 					handleSubmit,
 					isSubmitting,
 					isValid,
+					setFieldValue
 				}) => (
 					<form onSubmit={handleSubmit}>
 						<div className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2'>
@@ -93,10 +88,16 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 							<div className='-mx-3 md:flex mb-2'>
 
 								<Labelled label="Date of Birth">
-									<DatePickerComponent value={check.dob} onChange={(date) => setCheck({ dob: date })}/>
+									<DatePickerComponent value={values.dob} onChange={(date)=>setFieldValue('dob',date)} onBlur={handleBlur('dob')}/>
+									<p className='text-red-500 text-xs italic'>
+										{errors.dob && touched.dob && errors.dob}
+									</p>
 								</Labelled>
 								<Labelled label="Gender">
-									<Options options={["Male","Female","Other"]} value={gender} setValue={setGender}/>
+									<Options options={["Male","Female","Other"]} value={gender} setValue={handleChange('gender')} onBlur={handleBlur('gender')}/>
+									<p className='text-red-500 text-xs italic'>
+										{errors.gender && touched.gender && errors.gender}
+									</p>
 								</Labelled>
 
 							</div>

@@ -166,7 +166,7 @@ export function transformPatientCreateRequest(inputRequest) {
     name: inputRequest.name,
     gender: genderMap[inputRequest.gender],
     address: inputRequest.address,
-    date_of_birth: printDate(inputRequest.dateOfBirth),
+    date_of_birth: printDate(inputRequest.dob),
     estimated_contact_date: inputRequest.dateOfFirstContact,
     countries_travelled: inputRequest.countryOfVisit,
     past_travel: !!inputRequest.countryOfVisit,

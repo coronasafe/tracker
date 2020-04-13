@@ -11,8 +11,6 @@ import { navigate } from 'hookrouter';
 import ExistingSuspectsPopup from './ExistingSuspectsPopup';
 
 function CreateSuspect({searchPatient,setCurrentPatient}) {
-	const [check, setCheck] = useState({ dob: null });
-	const [gender, setGender] = useState(null);
 	const [existingSuspects,setExistingSuspects] = useState([]);
 
 
@@ -94,7 +92,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 									</p>
 								</Labelled>
 								<Labelled label="Gender">
-									<Options options={["Male","Female","Other"]} value={gender} setValue={handleChange('gender')} onBlur={handleBlur('gender')}/>
+									<Options options={["Male","Female","Other"]} value={values.gender} setValue={handleChange('gender')} onBlur={handleBlur('gender')}/>
 									<p className='text-red-500 text-xs italic'>
 										{errors.gender && touched.gender && errors.gender}
 									</p>

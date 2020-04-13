@@ -1,4 +1,4 @@
-export function prepareOption(option, labelKey) {
+export function prepareOption(option, labelKey = "name") {
   if (typeof option === "string") {
     return {
       label: option,

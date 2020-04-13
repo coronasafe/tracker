@@ -12,7 +12,7 @@ export function AsyncDropdown({
   function loadOptions(inputValue) {
     return loadOptionsService(inputValue).then((serviceOptions) => {
       return serviceOptions.map((option) => {
-        return prepareOption(option);
+        return prepareOption(option,labelKey);
       });
     });
   }

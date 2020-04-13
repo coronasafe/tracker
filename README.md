@@ -1,4 +1,5 @@
 # Suspect Tracker | CoronaSafe
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9f38f5ce-1260-453e-8f28-af26485ee05f/deploy-status)](covid19trackerkerala/deploys)
 ### Objective
 Suspect Tracker is a website aimed to be used by Primary Health Centers, Railway and Airport officials to report and maintain records of passengers who have arrived from infected regions and people who have come in contact with confirmed patients and suspected patients.
 

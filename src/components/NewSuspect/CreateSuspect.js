@@ -11,18 +11,18 @@ import { navigate } from 'hookrouter';
 import ExistingSuspectsPopup from './ExistingSuspectsPopup';
 
 function CreateSuspect({searchPatient,setCurrentPatient}) {
-	const [check, setCheck] = useState({ dob: new Date(1991, 0) });
+	const [check, setCheck] = useState({ dob: null });
 	const [gender, setGender] = useState(null);
 	const [existingSuspects,setExistingSuspects] = useState([]);
 
-	
+
 	const handleSubmission = (values, { setSubmitting }) => {
 		searchPatient({name:values.name,phone_number:values.phone}).then((response)=>{
 			if(!response || !response.data){
 				Error({msg:response})
 			}
 			else if(response.data.count===0){
-				Success({msg:"Patient not found."})	
+				Success({msg:"Patient not found."})
 				setCurrentPatient({
 					...values,
 					dateOfBirth:check.dob,

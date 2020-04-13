@@ -1,13 +1,40 @@
 export const relationToPositivePatientOptions = [
-  "Friend",
-  "Family Member",
-  "Relative",
-  "Neighbor",
-  "Travel Together/Co-passenger",
-  "Hospital",
-  "Shop",
-  "Office/Establishment",
-  "Place of Worship",
+  {
+    value:"FRIEND",
+    name:"Friend"
+  },
+  {
+    value:"FAMILY_MEMBER",
+    name:"Family Member"
+  },
+  {
+    value:"RELATIVE",
+    name:"Relative"
+  },
+  {
+    value:"NEIGHBOR",
+    name:"Neighbor"
+  },
+  {
+    value:"TRAVEL_TOGETHER",
+    name:"Travel Together/Co-passenger"
+  },
+  {
+    value:"WHILE_AT_HOSPITAL",
+    name:"Hospital"
+  },
+  {
+    value:"WHILE_AT_SHOP",
+    name:"Shop"
+  },
+  {
+    value:"WHILE_AT_OFFICE_OR_ESTABLISHMENT",
+    name:"Office/Establishment"
+  },
+  {
+    value:"PLACE_OF_WORSHIP",
+    name:"Place of Worship"
+  }
 ];
 
 export const modeOfContactOptions = [

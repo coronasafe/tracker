@@ -163,6 +163,9 @@ export function transformPatientCreateRequest(inputRequest) {
       occupation: inputRequest.occupation.toUpperCase().replace(/ /g, "_").split("/")[0],
       head_of_household: inputRequest.headOfHousehold === "Yes",
     },
+    contacted_patients: {
+      relation_with_patient: inputRequest.relationToPositivePatient
+    },
     name: inputRequest.name,
     gender: genderMap[inputRequest.gender],
     address: inputRequest.address,

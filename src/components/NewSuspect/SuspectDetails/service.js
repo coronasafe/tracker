@@ -11,7 +11,8 @@ export function getCovidPatients(searchText) {
   return Promise.resolve('Success').then(()=>{ return [] })
   return APIRequest("searchPatient", [], {name: searchText}).then((response) => {
     if (response && response.data && response.data.results) {
-      return response.data.results;
+
+      return response.data.results.map((patient)=>({name:`${patient.name} - ${patient.state_id} - ${patient.year_of_birth}`,value:patient}));
     } else {
       return [];
     }
@@ -61,6 +62,7 @@ export function getHCNameOptions(lsg, type) {
 
 export async function saveForm(formData) {
   try {
+    console.log(JSON.stringify(formData));
     let createPatientRequest = transformPatientCreateRequest(formData);
     let createPatientResponse = await APIRequest(
       "createPatient",
@@ -91,6 +93,7 @@ export async function saveForm(formData) {
       );
     }
   } catch (e) {
+    console.log(JSON.stringify(e))
     throw e;
   }
 }

@@ -6,6 +6,20 @@ import {
   transformTestSampleCreateRequest,
 } from "./utils";
 
+export function getCovidPatients(searchText) {
+  console.log("searchText" + JSON.stringify(searchText) + searchText.length)
+  return APIRequest("searchPatient", [], {name: searchText}).then((response) => {
+    if (response && response.data && response.data.results) {
+      return response.data.results;
+    } else {
+      return [];
+    }
+  });
+
+
+  // return [];
+}
+
 export function getDistrictOptions(searchText) {
   return APIRequest("getDistrictsList", [""]).then((response) => {
     if (response && response.data && response.data.results) {

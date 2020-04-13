@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Labelled from "../../common/Labelled";
 import Textarea from "../../common/Textarea";
 import Dropdown, { AsyncDropdown } from "../../common/Dropdown";
-import Input from "../../common/Input";
 import FormRow from "../../common/FormRow";
 import RadioSelect from "../../common/RadioSelect";
 import PassengerForm from "./PassengerForm";
@@ -18,11 +17,35 @@ import { OccupationOptions, HealthCentreTypeOptions } from "./constants";
 import { getUnfilledFields, getErrorText, printDate } from "./utils";
 import { connect } from "react-redux";
 import { setCurrentPatient } from "../../../Redux/actions";
-
 import { navigate } from "hookrouter";
+import Options from "../../common/Options";
 import { Success, Error } from "../../../util/Notifications";
 
 function SuspectDetails({ formData, setFormData }) {
+  const [LSGOptions, setLSGOptions] = useState([]);
+  const [HCOptions, setHCOptions] = useState([]);
+  useEffect(() => {
+    if (formData["district"] && formData["typeOfLSG"]) {
+      getLSGNameOptions(formData["typeOfLSG"], formData["district"]).then(
+        (retrivedOptions) => {
+          setLSGOptions(retrivedOptions);
+        }
+      );
+    }
+    if (formData["nameOfLSG"] && formData["typeOfHC"]) {
+      getHCNameOptions(formData["nameOfLSG"], formData["typeOfHC"]).then(
+        (retrivedOptions) => {
+          setHCOptions(retrivedOptions);
+        }
+      );
+    }
+  }, [
+    formData && formData["district"],
+    formData && formData["typeOfLSG"],
+    formData && formData["nameOfLSG"],
+    formData && formData["typeOfHC"],
+  ]);
+
   useEffect(() => {
     if (!formData.typeOfLSG) {
       setFormData({
@@ -47,10 +70,10 @@ function SuspectDetails({ formData, setFormData }) {
   function submitForm() {
     saveForm(formData)
       .then(() => {
-        Success("Form Successfully Saved");
+        Success({ msg: "Patient creation success" });
       })
       .catch(() => {
-        Error("Failed to create suspect");
+        Error({ msg: "Failed to create patient" });
       });
   }
   console.log("Form Data : ", formData);
@@ -79,10 +102,10 @@ function SuspectDetails({ formData, setFormData }) {
             />
           </Labelled>
           <Labelled label="Head of Household">
-            <Input
-              placeholder={"Head of Household"}
+            <Options
+              options={["Yes", "No"]}
               value={formData["headOfHousehold"]}
-              onChange={setData("headOfHousehold")}
+              setValue={setData("headOfHousehold")}
             />
           </Labelled>
         </FormRow>
@@ -101,27 +124,33 @@ function SuspectDetails({ formData, setFormData }) {
             <AsyncDropdown
               loadOptionsService={getDistrictOptions}
               setOption={setData("district")}
+              labelKey={"name"}
             />
           </Labelled>
         </FormRow>
 
-        <FormRow>
+        <FormRow totalWidth={2}>
           <Labelled label="Type of LSG *">
             <Dropdown
-              options={["Panchayat", "Muncipality", "Corporation"]}
+              options={["Panchayat", "Municipality", "Corporation"]}
               currentOption={formData["typeOfLSG"]}
               setOption={setData("typeOfLSG")}
             />
           </Labelled>
-          <Labelled label={"Name of " + formData["typeOfLSG"] + " *"}>
-            <AsyncDropdown
-              setOption={setData("nameOfLSG")}
-              loadOptionsService={getLSGNameOptions(formData["typeOfLSG"])}
-            />
-          </Labelled>
+          {LSGOptions.length ? (
+            <Labelled label={"Name of " + formData["typeOfLSG"] + " *"}>
+              <Dropdown
+                options={LSGOptions}
+                currentOption={formData["nameOfLSG"]}
+                setOption={setData("nameOfLSG")}
+              />
+            </Labelled>
+          ) : (
+            <div />
+          )}
         </FormRow>
 
-        <FormRow>
+        <FormRow totalWidth={2}>
           <Labelled label="Type of Health institution">
             <Dropdown
               options={HealthCentreTypeOptions}
@@ -129,13 +158,17 @@ function SuspectDetails({ formData, setFormData }) {
               setOption={setData("typeOfHC")}
             />
           </Labelled>
-
-          <Labelled label="Name of nearest PHC/FHC *">
-            <AsyncDropdown
-              setOption={setData("nameOfHC")}
-              loadOptionsService={getHCNameOptions(formData["typeOfHC"])}
-            />
-          </Labelled>
+          {HCOptions.length ? (
+            <Labelled label={"Name of nearest PHC/FHC *"}>
+              <Dropdown
+                options={HCOptions}
+                currentOption={formData["nameOfHC"]}
+                setOption={setData("nameOfHC")}
+              />
+            </Labelled>
+          ) : (
+            <div />
+          )}
         </FormRow>
 
         <FormRow>

@@ -9,14 +9,23 @@ export const OccupationOptions = [
 ];
 
 export const HealthCentreTypeOptions = [
-  "Community Health Centres",
   "Family Health Centres",
+  "Educational Inst",
+  "Private Hospital",
+  "Other",
+  "Hostel",
+  "Hotel",
+  "Lodge",
+  "TeleMedicine",
+  "Govt Hospital",
   "Primary Health Centres",
   "24x7 Public Health Centres",
+  "Family Health Centres",
+  "Community Health Centres",
+  "Urban Primary Health Center",
   "Taluk Hospitals",
   "Taluk Headquarters Hospitals",
+  "Women and Child Health Centres",
   "General hospitals",
   "District Hospitals",
-  "Urban Primary Health Center",
-  "Women and Child Health Centre",
 ];

@@ -1,8 +1,6 @@
-import React, { useState , useEffect } from 'react';
-import DatePicker from 'react-date-picker';
+import React, { useState  } from 'react';
 import {connect} from 'react-redux';
 import { Formik } from 'formik';
-import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import {Success, Error} from '../../util/Notifications';
 import createSuspectValidationSchema from '../../util/create-suspect.validation';
 import { searchPatient, setCurrentPatient } from '../../Redux/actions';
@@ -10,28 +8,36 @@ import Labelled from '../common/Labelled';
 import Options from '../common/Options';
 import DatePickerComponent from '../common/DatePicker';
 import { navigate } from 'hookrouter';
+import ExistingSuspectsPopup from './ExistingSuspectsPopup';
 
 function CreateSuspect({searchPatient,setCurrentPatient}) {
 	const [check, setCheck] = useState({ dob: new Date(1991, 0) });
 	const [gender, setGender] = useState(null);
+	const [existingSuspects,setExistingSuspects] = useState([]);
 
-	const handleSubmission = async (values, { setSubmitting }) => {
-		searchPatient({phone_number:values.phone, name:values.name}).then((response)=>{
-			if(!response.data){
+	
+	const handleSubmission = (values, { setSubmitting }) => {
+		searchPatient({name:values.name,phone_number:values.phone}).then((response)=>{
+			if(!response || !response.data){
 				Error({msg:response})
 			}
 			else if(response.data.count===0){
-				Success({msg:"Patient not found."})
+				Success({msg:"Patient not found."})	
 				setCurrentPatient({
 					...values,
 					dateOfBirth:check.dob,
 					gender
 				})
 					navigate("/suspect/details");
-
 			}
 			else if(response.data.count!==0){
 				Error({msg:"Patient already exists."})
+				setCurrentPatient({
+					...values,
+					dateOfBirth:check.dob,
+					gender
+				})
+				setExistingSuspects(response.data.results);
 			}
 		})
 		setSubmitting(false);
@@ -131,6 +137,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 					</form>
 				)}
 			</Formik>
+			<ExistingSuspectsPopup existingSuspects={existingSuspects} onClose={()=>setExistingSuspects([])} onOverride={()=>navigate("/suspect/details")}/>
 		</div>
 	);
 }

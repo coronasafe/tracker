@@ -62,4 +62,24 @@ export default {
         path: '/api/v1/users',
         method: 'DELETE'
     },
+    getPatients: {
+        path: '/api/v1/patient',
+        method: 'GET'
+    },
+    getDistrictsList:{
+        path:"/api/v1/district",
+        method:"GET"
+    },
+    getFacilitiesList:{
+        path:"/api/v1/facility",
+        method:"GET"
+    },
+    createPatient:{
+        path:"/api/v1/patient",
+        method:"POST"
+    },
+    createConsultation:{
+        path:"/api/v1/consultation",
+        method:"POST"
+    }
 }

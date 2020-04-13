@@ -7,7 +7,8 @@ import {
 } from "./utils";
 
 export function getCovidPatients(searchText) {
-  console.log("searchText" + JSON.stringify(searchText) + searchText.length)
+  if(searchText.length === 0)
+  return Promise.resolve('Success').then(()=>{ return [] })
   return APIRequest("searchPatient", [], {name: searchText}).then((response) => {
     if (response && response.data && response.data.results) {
       return response.data.results;

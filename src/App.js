@@ -44,17 +44,14 @@ function App() {
 
   useEffect(() => {
     updateRefreshToken()
-    return () => {
-      setInterval(updateRefreshToken, 5 * 60 * 1000)
-    }
-  }, [0])
+    setInterval(updateRefreshToken, 5 * 60 * 1000)
+  }, [])
 
   useAbortableEffect( async(status)=>{
     const res = await dispatch(getCurrentUser());
     if(!status.aborted && res && res.statusCode === 200){
       setUser(res.data)
     }
-
   }, [dispatch] )
 
   // keep isLoading in redux, so that if any component is loading

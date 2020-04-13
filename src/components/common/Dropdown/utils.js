@@ -4,8 +4,6 @@ export function prepareOption(option, labelKey) {
       label: option,
       value: option,
     };
-  } else if ((option.label || option[labelKey]) && option.value) {
-    return option;
   } else {
     return {
       label: option[labelKey],

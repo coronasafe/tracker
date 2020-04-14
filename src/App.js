@@ -4,14 +4,14 @@ import AppRouter from './Router/AppRouter';
 import PublicRouter from './Router/PublicRouter';
 import axios from 'axios';
 // import { useAbortableEffect } from './util/useAbortableEffect'
-import { getCurrentUser } from './Redux/actions';
+// import { getCurrentUser } from './Redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const state = useSelector(state => state);
   const { currentUser } = state;
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
   const updateRefreshToken = () => {
     const refresh = localStorage.getItem('care_refresh_token');

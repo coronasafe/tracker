@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useRedirect, useRoutes, navigate } from 'hookrouter';
-import NavBar from '../components/Navbars/NavBar';
-import CreateSuspect from '../components/NewSuspect/CreateSuspect';
-import SuspectDetails from '../components/NewSuspect/SuspectDetails';
 import PublicNavBar from '../components/Navbars/PublicNavBar';
 import Login from '../components/Account/Login';
 

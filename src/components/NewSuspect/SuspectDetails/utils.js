@@ -59,6 +59,8 @@ export function getErrorText(data) {
 export function getUnfilledFields(data) {
   let requiredFields = [
     "address",
+    "occupation",
+    "headOfHousehold",
     "district",
     "typeOfLSG",
     "nameOfLSG",

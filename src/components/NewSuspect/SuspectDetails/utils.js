@@ -156,21 +156,57 @@ const sampleInput = {
   remarks: "sdlfksndlknskdfgnsd",
 };
 
-export function transformPatientCreateRequest(inputRequest) {
+export function transformContactCreateRequest(inputRequest) {
   let outputRequest = {
     phone_number: inputRequest.phone,
     meta_info: {
       occupation: inputRequest.occupation.toUpperCase().replace(/ /g, "_").split("/")[0],
       head_of_household: inputRequest.headOfHousehold === "Yes",
     },
-    contacted_patients: {
-      relation_with_patient: inputRequest.relationToPositivePatient,
-      date_of_first_contact: new Date(inputRequest.dateOfFirstContact).toISOString(),
-      date_of_last_contact: new Date(inputRequest.dateOfLastContact).toISOString(),
+    contacted_patients: [{
+      relation_with_patient: inputRequest.relationToPositivePatient.value,
+      mode_of_contact: inputRequest.modeOfContact.value,
+      date_of_first_contact: printDate(inputRequest.dateOfFirstContact).toISOString(),
+      date_of_last_contact: printDate(inputRequest.dateOfLastContact).toISOString(),
       isPrimary: inputRequest.typeOfContact === "Primary",
       condition_of_contact_is_symptomatic: inputRequest.symptoms.includes("Asymptomatic"),
-      patient_in_contact: inputRequest.covidPatientCode.id
+      patient_in_contact: inputRequest.covidPatientCode.value.id
+    }],
+    name: inputRequest.name,
+    gender: genderMap[inputRequest.gender],
+    address: inputRequest.address,
+    date_of_birth: printDate(inputRequest.dob),
+    estimated_contact_date: inputRequest.dateOfFirstContact,
+    countries_travelled: inputRequest.countryOfVisit,
+    past_travel: !inputRequest.countryOfVisit,
+    date_of_return: inputRequest.dateOfDeparture,
+    facility: inputRequest.nameOfHC.id,
+    nearest_facility: inputRequest.nameOfHC.id,
+    local_body: inputRequest.nameOfLSG.id,
+    district: inputRequest.district.id,
+    state: inputRequest.district.state,
+    source: "COVID_TRACKER",
+    contact_with_confirmed_carrier: inputRequest.typeOfContact === "Primary",
+    contact_with_suspected_carrier: inputRequest.typeOfContact === "Secondary",
+  };
+  return outputRequest;
+}
+export function transformPassengerCreateRequest(inputRequest) {
+  let outputRequest = {
+    phone_number: inputRequest.phone,
+    meta_info: {
+      occupation: inputRequest.occupation.toUpperCase().replace(/ /g, "_").split("/")[0],
+      head_of_household: inputRequest.headOfHousehold === "Yes",
     },
+    contacted_patients: [{
+      relation_with_patient: inputRequest.relationToPositivePatient.value,
+      mode_of_contact: inputRequest.modeOfContact.value,
+      date_of_first_contact: printDate(inputRequest.dateOfFirstContact).toISOString(),
+      date_of_last_contact: printDate(inputRequest.dateOfLastContact).toISOString(),
+      isPrimary: inputRequest.typeOfContact === "Primary",
+      condition_of_contact_is_symptomatic: inputRequest.symptoms.includes("Asymptomatic"),
+      patient_in_contact: inputRequest.covidPatientCode.value.id
+    }],
     name: inputRequest.name,
     gender: genderMap[inputRequest.gender],
     address: inputRequest.address,

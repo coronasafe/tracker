@@ -1,7 +1,8 @@
 import { APIRequest } from "../../../Redux/fireRequest";
 import {
   searchStringMatch,
-  transformPatientCreateRequest,
+  transformPassengerCreateRequest,
+  transformContactCreateRequest,
   transformConsultationCreateRequest,
   transformTestSampleCreateRequest,
 } from "./utils";
@@ -63,7 +64,7 @@ export function getHCNameOptions(lsg, type) {
 export async function saveForm(formData) {
   try {
     console.log(JSON.stringify(formData));
-    let createPatientRequest = transformPatientCreateRequest(formData);
+    let createPatientRequest = formData.type === "Passenger" ? transformPassengerCreateRequest(formData): transformContactCreateRequest(formData);
     let createPatientResponse = await APIRequest(
       "createPatient",
       [],

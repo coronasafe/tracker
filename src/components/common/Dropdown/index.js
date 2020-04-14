@@ -24,6 +24,7 @@ export function AsyncDropdown({
       onChange={(newOption) => {
         setOption(newOption.value);
       }}
+      placeholder={!loadOnSearch && "Start typing to see options"}
     />
   );
 }

@@ -37,7 +37,7 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 
 	return (
 		<div
-			className='h-screen overflow-hidden flex items-center justify-center bg-blue-100'>
+			className='h-screen overflow-hidden flex items-center justify-center'>
 			<Formik
 				initialValues={{
 					name: '',

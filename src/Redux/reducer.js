@@ -1,10 +1,15 @@
 import { actions } from './fireRequest';
 
 const initState ={
-    
+    currentPatient: {
+      name:"TestConstant",
+      dob:new Date(),
+      gender:"Male",
+      phone:"9962366775"
+    }
 }
 
-const reducer = (state = {}, changeAction) => {
+const reducer = (state = initState, changeAction) => {
     switch (changeAction.type) {
         case actions.FETCH_REQUEST: {
             const obj = {...state};

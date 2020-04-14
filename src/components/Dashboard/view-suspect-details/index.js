@@ -35,7 +35,7 @@ export default function ViewSuspectDetails(props) {
 	} = patientData
 	return !patientData ? (<div class="lds-dual-ring mx-auto h-screen w-full items-center justify-center overflow-hidden flex"/>)
 	: (
-		<div className='h-full w-full flex justify-center py-5 bg-gray-200'>
+		<div className='h-full w-full flex justify-center py-5 max-w-5xl mx-auto'>
 			<div class='w-auto mx-12 rounded overflow-hidden shadow-lg  bg-white'>
 				<div class='px-6 py-4'>
 					<div class='font-bold text-xl mb-2'>Patient Information</div>

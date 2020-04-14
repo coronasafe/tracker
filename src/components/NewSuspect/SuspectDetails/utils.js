@@ -164,7 +164,12 @@ export function transformPatientCreateRequest(inputRequest) {
       head_of_household: inputRequest.headOfHousehold === "Yes",
     },
     contacted_patients: {
-      relation_with_patient: inputRequest.relationToPositivePatient
+      relation_with_patient: inputRequest.relationToPositivePatient,
+      date_of_first_contact: new Date(inputRequest.dateOfFirstContact).toISOString(),
+      date_of_last_contact: new Date(inputRequest.dateOfLastContact).toISOString(),
+      isPrimary: inputRequest.typeOfContact === "Primary",
+      condition_of_contact_is_symptomatic: inputRequest.symptoms.includes("Asymptomatic"),
+      patient_in_contact: inputRequest.covidPatientCode.id
     },
     name: inputRequest.name,
     gender: genderMap[inputRequest.gender],

@@ -20,7 +20,7 @@ const AppRouter = () => {
 	const pages = useRoutes(routes);
 	!pages && navigate("/suspect/view")
 	return (
-		<div>
+		<div className="bg-gray-200">
 			<NavBar />
 			{pages}
 			{!pages && (

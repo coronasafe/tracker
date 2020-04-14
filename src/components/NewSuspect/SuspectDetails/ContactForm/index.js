@@ -21,8 +21,7 @@ function ContactForm({ data, setData }) {
         <Labelled label="Covid Patient Code *">
           <AsyncDropdown
             loadOptionsService={getCovidPatients}
-            setOption={(patient) => {setData(patient.value,"covidPatientCode")}}
-            helpText="(Identified Positive Case)"
+            setOption={(patient) => {setData("covidPatientCode")(patient.value)}}
           />
         </Labelled>
         <Labelled label="Relation to identified-positive-patient">

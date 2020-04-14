@@ -12,8 +12,8 @@ export const relationToPositivePatientOptions = [
     name:"Relative"
   },
   {
-    value:"NEIGHBOR",
-    name:"Neighbor"
+    value:"NEIGHBOUR",
+    name:"Neighbour"
   },
   {
     value:"TRAVEL_TOGETHER",

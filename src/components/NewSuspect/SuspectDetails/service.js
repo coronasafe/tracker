@@ -97,7 +97,7 @@ export async function saveForm(formData) {
       );
     }
   } catch (e) {
-    console.log(JSON.stringify(e))
+    console.error(e)
     throw e;
   }
 }

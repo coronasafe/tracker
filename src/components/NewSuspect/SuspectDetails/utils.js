@@ -78,9 +78,9 @@ export function printDate(date) {
   return (
     new Date(date).getFullYear() +
     "-" +
-    new Date(date).getUTCMonth() +
+    ("0" + new Date(date).getUTCMonth()).slice(-2) +
     "-" +
-    new Date(date).getDate()
+    ("0" + new Date(date).getDate()).slice(-2)
   );
 }
 
@@ -166,11 +166,11 @@ export function transformContactCreateRequest(inputRequest) {
     contacted_patients: [{
       relation_with_patient: inputRequest.relationToPositivePatient.value,
       mode_of_contact: inputRequest.modeOfContact.value,
-      date_of_first_contact: printDate(inputRequest.dateOfFirstContact).toISOString(),
-      date_of_last_contact: printDate(inputRequest.dateOfLastContact).toISOString(),
-      isPrimary: inputRequest.typeOfContact === "Primary",
+      date_of_first_contact: printDate(inputRequest.dateOfFirstContact),
+      date_of_last_contact: printDate(inputRequest.dateOfLastContact),
+      is_primary: inputRequest.typeOfContact === "Primary",
       condition_of_contact_is_symptomatic: inputRequest.symptoms.includes("Asymptomatic"),
-      patient_in_contact: inputRequest.covidPatientCode.value.id
+      patient_in_contact: inputRequest.covidPatientCode.value.patient_id
     }],
     name: inputRequest.name,
     gender: genderMap[inputRequest.gender],
@@ -198,15 +198,6 @@ export function transformPassengerCreateRequest(inputRequest) {
       occupation: inputRequest.occupation.toUpperCase().replace(/ /g, "_").split("/")[0],
       head_of_household: inputRequest.headOfHousehold === "Yes",
     },
-    contacted_patients: [{
-      relation_with_patient: inputRequest.relationToPositivePatient.value,
-      mode_of_contact: inputRequest.modeOfContact.value,
-      date_of_first_contact: printDate(inputRequest.dateOfFirstContact).toISOString(),
-      date_of_last_contact: printDate(inputRequest.dateOfLastContact).toISOString(),
-      isPrimary: inputRequest.typeOfContact === "Primary",
-      condition_of_contact_is_symptomatic: inputRequest.symptoms.includes("Asymptomatic"),
-      patient_in_contact: inputRequest.covidPatientCode.value.id
-    }],
     name: inputRequest.name,
     gender: genderMap[inputRequest.gender],
     address: inputRequest.address,
@@ -214,7 +205,7 @@ export function transformPassengerCreateRequest(inputRequest) {
     estimated_contact_date: inputRequest.dateOfFirstContact,
     countries_travelled: inputRequest.countryOfVisit,
     past_travel: !!inputRequest.countryOfVisit,
-    date_of_return: inputRequest.dateOfDeparture,
+    date_of_return: printDate(inputRequest.dateOfDeparture),
     facility: inputRequest.nameOfHC.id,
     nearest_facility: inputRequest.nameOfHC.id,
     local_body: inputRequest.nameOfLSG.id,

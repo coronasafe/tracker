@@ -1,6 +1,6 @@
 export const OccupationOptions = [
   "Student",
-  "Healthcare Provider",
+  "Medical Worker",
   "Working Abroad",
   "Govt Employee",
   "Private Employee",

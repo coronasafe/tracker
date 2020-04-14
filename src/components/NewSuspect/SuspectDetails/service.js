@@ -26,7 +26,9 @@ export function getCovidPatients(searchText) {
 export function getDistrictOptions(searchText) {
   return APIRequest("getDistrictsList", [""]).then((response) => {
     if (response && response.data && response.data.results) {
-      return response.data.results;
+      return response.data.results.filter((district) => {
+        return searchStringMatch(district.name, searchText);
+      });
     } else {
       return [];
     }
@@ -65,6 +67,7 @@ export async function saveForm(formData) {
   try {
     console.log(JSON.stringify(formData));
     let createPatientRequest = formData.type === "Passenger" ? transformPassengerCreateRequest(formData): transformContactCreateRequest(formData);
+    console.log("Transformed");
     let createPatientResponse = await APIRequest(
       "createPatient",
       [],

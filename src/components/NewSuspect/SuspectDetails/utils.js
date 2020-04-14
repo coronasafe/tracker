@@ -178,7 +178,7 @@ export function transformContactCreateRequest(inputRequest) {
     date_of_birth: printDate(inputRequest.dob),
     estimated_contact_date: inputRequest.dateOfFirstContact,
     countries_travelled: inputRequest.countryOfVisit,
-    past_travel: !inputRequest.countryOfVisit,
+    past_travel: !!inputRequest.countryOfVisit,
     date_of_return: inputRequest.dateOfDeparture,
     facility: inputRequest.nameOfHC.id,
     nearest_facility: inputRequest.nameOfHC.id,

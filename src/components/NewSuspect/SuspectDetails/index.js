@@ -125,7 +125,6 @@ function SuspectDetails({ formData, setFormData }) {
             <AsyncDropdown
               loadOptionsService={getDistrictOptions}
               setOption={setData("district")}
-              labelKey={"name"}
             />
           </Labelled>
         </FormRow>

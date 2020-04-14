@@ -1,7 +1,6 @@
 import React from "react";
 import FormRow from "../../../common/FormRow";
 import Labelled from "../../../common/Labelled";
-import Input from "../../../common/Input";
 import Dropdown, {AsyncDropdown} from "../../../common/Dropdown";
 import {
   relationToPositivePatientOptions,

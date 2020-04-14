@@ -71,9 +71,9 @@ export default function MedicalHistory() {
 							</span>
 						</div>
 						<div className="ml-4 flex-shrink-0">
-							<a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
+							<span href="#" className="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
 								Download
-							</a>
+							</span>
 						</div>
 					</li>
 					<li className="border-t border-gray-200 pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
@@ -86,9 +86,9 @@ export default function MedicalHistory() {
 							</span>
 						</div>
 						<div className="ml-4 flex-shrink-0">
-							<a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
+							<span className="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
 								Download
-							</a>
+							</span>
 						</div>
 					</li>
 				</ul>

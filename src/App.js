@@ -12,8 +12,6 @@ function App() {
   const state = useSelector(state => state);
   const { currentUser } = state;
   const [user, setUser] = useState(null);
-  const isAuth = true;
-  const isLoading = false;
 
   const updateRefreshToken = () => {
     const refresh = localStorage.getItem('care_refresh_token');
@@ -47,7 +45,7 @@ function App() {
     setInterval(updateRefreshToken, 5 * 60 * 1000)
   }, [])
 
-  // Removing Causes Infinite Loop 
+  // Removing Causes Infinite Loop
   useAbortableEffect( async(status)=>{
     const res = await dispatch(getCurrentUser());
     if(!status.aborted && res && res.statusCode === 200){

@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "../../common/Modal";
 import Table from "../../common/Table";
 import { existingSuspectsConfig } from "./config";
-import Button from "../../common/Button";
+// import Button from "../../common/Button";
 
 function ExistingSuspectsPopup({ existingSuspects, onClose, onOverride }) {
   if (existingSuspects.length === 0) {

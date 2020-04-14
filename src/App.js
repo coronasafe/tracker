@@ -3,7 +3,7 @@ import './App.css';
 import AppRouter from './Router/AppRouter';
 import PublicRouter from './Router/PublicRouter';
 import axios from 'axios';
-import { useAbortableEffect } from './util/useAbortableEffect'
+// import { useAbortableEffect } from './util/useAbortableEffect'
 import { getCurrentUser } from './Redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,8 +12,6 @@ function App() {
   const state = useSelector(state => state);
   const { currentUser } = state;
   const [user, setUser] = useState(null);
-  const isAuth = true;
-  const isLoading = false;
 
   const updateRefreshToken = () => {
     const refresh = localStorage.getItem('care_refresh_token');
@@ -47,12 +45,12 @@ function App() {
     setInterval(updateRefreshToken, 5 * 60 * 1000)
   }, [])
 
-  useAbortableEffect( async(status)=>{
-    const res = await dispatch(getCurrentUser());
-    if(!status.aborted && res && res.statusCode === 200){
-      setUser(res.data)
-    }
-  }, [dispatch] )
+  // useAbortableEffect( async(status)=>{
+  //   const res = await dispatch(getCurrentUser());
+  //   if(!status.aborted && res && res.statusCode === 200){
+  //     setUser(res.data)
+  //   }
+  // }, [dispatch] )
 
   // keep isLoading in redux, so that if any component is loading
   // App component will render loading page

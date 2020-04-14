@@ -9,8 +9,9 @@ import {
   SymptomOptions,
   LabOptions,
 } from "./constants";
-import { getSeverityOfContact } from "./utils";
 import DatePicker from "../../../common/DatePicker";
+
+// import { getSeverityOfContact } from "./utils";
 
 function CommonSection({ data, setData }) {
   return (

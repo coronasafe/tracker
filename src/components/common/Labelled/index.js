@@ -1,6 +1,6 @@
 import React from "react";
 
-function Labelled({ label, children }) {
+function Labelled({ label, children, errorMessage}) {
   return (
     <div className="w-full p-3">
       <label
@@ -10,6 +10,7 @@ function Labelled({ label, children }) {
         {label}
       </label>
       {children}
+      <p className="text-red-600 text-xs italic">{errorMessage}</p>
     </div>
   );
 }

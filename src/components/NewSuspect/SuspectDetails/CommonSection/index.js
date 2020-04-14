@@ -11,6 +11,7 @@ import {
 } from "./constants";
 import { getSeverityOfContact } from "./utils";
 import DatePicker from "../../../common/DatePicker";
+import { getValidationError } from "../utils";
 
 function CommonSection({ data, setData }) {
   return (
@@ -25,7 +26,7 @@ function CommonSection({ data, setData }) {
         </Labelled>
       </FormRow>
       <FormRow totalWidth={3}>
-        <Labelled label="Sample Sent *">
+        <Labelled label="Sample Sent *"  errorMessage={getValidationError(data,"sampleSent")}>
           <Dropdown
             currentOption={data["sampleSent"]}
             setOption={setData("sampleSent")}
@@ -65,14 +66,14 @@ function CommonSection({ data, setData }) {
         </Labelled>
       </FormRow>
       <FormRow>
-        <Labelled label="Home Isolation *">
+        <Labelled label="Home Isolation *" errorMessage={getValidationError(data,"homeIsolation")}>
           <Dropdown
             currentOption={data["homeIsolation"]}
             setOption={setData("homeIsolation")}
             options={HomeIsolationOptions}
           />
         </Labelled>
-        <Labelled label="Hospital Admission *">
+        <Labelled label="Hospital Admission *" errorMessage={getValidationError(data,"hospitalAdmission")}>
           <Dropdown
             currentOption={data["hospitalAdmission"]}
             setOption={setData("hospitalAdmission")}

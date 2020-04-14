@@ -14,7 +14,7 @@ import {
 } from "./service";
 import Button from "../../common/Button";
 import { OccupationOptions, HealthCentreTypeOptions } from "./constants";
-import { getUnfilledFields, getErrorText, printDate } from "./utils";
+import { getUnfilledFields, printDate, getValidationError } from "./utils";
 import { connect } from "react-redux";
 import { setCurrentPatient } from "../../../Redux/actions";
 import { navigate } from "hookrouter";
@@ -111,7 +111,7 @@ function SuspectDetails({ formData, setFormData }) {
         </FormRow>
 
         <FormRow>
-          <Labelled label="Address *">
+          <Labelled label="Address *" errorMessage={getValidationError(formData,"address")}>
             <Textarea
               value={formData["address"]}
               onChange={setData("address")}
@@ -120,7 +120,7 @@ function SuspectDetails({ formData, setFormData }) {
         </FormRow>
 
         <FormRow totalWidth={4}>
-          <Labelled label="District *">
+          <Labelled label="District *" errorMessage={getValidationError(formData,"district")}>
             <AsyncDropdown
               loadOptionsService={getDistrictOptions}
               setOption={setData("district")}
@@ -130,7 +130,7 @@ function SuspectDetails({ formData, setFormData }) {
         </FormRow>
 
         <FormRow totalWidth={2}>
-          <Labelled label="Type of LSG *">
+          <Labelled label="Type of LSG *" errorMessage={getValidationError(formData,"typeOfLSG")}>
             <Dropdown
               options={["Panchayat", "Municipality", "Corporation"]}
               currentOption={formData["typeOfLSG"]}
@@ -138,7 +138,7 @@ function SuspectDetails({ formData, setFormData }) {
             />
           </Labelled>
           {LSGOptions.length ? (
-            <Labelled label={"Name of " + formData["typeOfLSG"] + " *"}>
+            <Labelled label={"Name of " + formData["typeOfLSG"] + " *"} errorMessage={getValidationError(formData,"nameOfLSG")}>
               <Dropdown
                 options={LSGOptions}
                 currentOption={formData["nameOfLSG"]}
@@ -151,7 +151,7 @@ function SuspectDetails({ formData, setFormData }) {
         </FormRow>
 
         <FormRow totalWidth={2}>
-          <Labelled label="Type of Health institution">
+          <Labelled label="Type of Health institution" errorMessage={getValidationError(formData,"typeOfHC")}>
             <Dropdown
               options={HealthCentreTypeOptions}
               currentOption={formData["typeOfHC"]}
@@ -159,7 +159,7 @@ function SuspectDetails({ formData, setFormData }) {
             />
           </Labelled>
           {HCOptions.length ? (
-            <Labelled label={"Name of nearest PHC/FHC *"}>
+            <Labelled label={"Name of nearest PHC/FHC *"} errorMessage={getValidationError(formData,"nameOfHC")}>
               <Dropdown
                 options={HCOptions}
                 currentOption={formData["nameOfHC"]}
@@ -189,7 +189,6 @@ function SuspectDetails({ formData, setFormData }) {
           ))}
 
         <FormRow>
-          {getErrorText(formData)}
           <Button
             text={"Submit"}
             disabled={getUnfilledFields(formData).length !== 0}

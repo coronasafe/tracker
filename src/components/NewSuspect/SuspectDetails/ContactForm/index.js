@@ -18,7 +18,6 @@ function ContactForm({ data, setData }) {
           <Input
             value={data["covidPatientCode"]}
             onChange={setData("covidPatientCode")}
-            helpText="(Identified Positive Case)"
           />
         </Labelled>
         <Labelled label="Relation to identified-positive-patient">

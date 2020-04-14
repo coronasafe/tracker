@@ -1,6 +1,6 @@
 import React from "react";
 
-function Input({ placeholder, helpText ,value, onChange}) {
+function Input({ placeholder ,value, onChange}) {
   return (
     <>
       <input
@@ -10,7 +10,6 @@ function Input({ placeholder, helpText ,value, onChange}) {
         onChange={(e)=>{onChange(e.target.value)}}
         value={value}
       />
-      <p className="text-red text-xs italic">{helpText}</p>
     </>
   );
 }

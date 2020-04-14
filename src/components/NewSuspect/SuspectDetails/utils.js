@@ -29,6 +29,8 @@ function getLabelString(field) {
 export function getUnfilledFields(data) {
   let requiredFields = [
     "address",
+    "occupation",
+    "headOfHousehold",
     "district",
     "typeOfLSG",
     "nameOfLSG",
@@ -48,9 +50,9 @@ export function printDate(date) {
   return (
     new Date(date).getFullYear() +
     "-" +
-    new Date(date).getUTCMonth() +
+    ("0" + new Date(date).getUTCMonth()).slice(-2) +
     "-" +
-    new Date(date).getDate()
+    ("0" + new Date(date).getDate()).slice(-2)
   );
 }
 
@@ -84,17 +86,52 @@ const symptomsMap = (symptoms) => {
     return SymptomOptions.indexOf(symptom) + 1;
   });
 };
-export function transformPatientCreateRequest(inputRequest) {
+
+export function transformContactCreateRequest(inputRequest) {
   let outputRequest = {
     phone_number: inputRequest.phone,
     meta_info: {
-      occupation: inputRequest.occupation.toUpperCase(),
+      occupation: inputRequest.occupation.toUpperCase().replace(/ /g, "_").split("/")[0],
+      head_of_household: inputRequest.headOfHousehold === "Yes",
+    },
+    contacted_patients: [{
+      relation_with_patient: inputRequest.relationToPositivePatient.value,
+      mode_of_contact: inputRequest.modeOfContact.value,
+      date_of_first_contact: printDate(inputRequest.dateOfFirstContact),
+      date_of_last_contact: printDate(inputRequest.dateOfLastContact),
+      is_primary: inputRequest.typeOfContact === "Primary",
+      condition_of_contact_is_symptomatic: inputRequest.symptoms.includes("Asymptomatic"),
+      patient_in_contact: inputRequest.covidPatientCode.value.patient_id
+    }],
+    name: inputRequest.name,
+    gender: genderMap[inputRequest.gender],
+    address: inputRequest.address,
+    date_of_birth: printDate(inputRequest.dob),
+    estimated_contact_date: inputRequest.dateOfFirstContact,
+    countries_travelled: inputRequest.countryOfVisit,
+    past_travel: !!inputRequest.countryOfVisit,
+    facility: inputRequest.nameOfHC.id,
+    nearest_facility: inputRequest.nameOfHC.id,
+    local_body: inputRequest.nameOfLSG.id,
+    district: inputRequest.district.id,
+    state: inputRequest.district.state,
+    source: "COVID_TRACKER",
+    contact_with_confirmed_carrier: inputRequest.typeOfContact === "Primary",
+    contact_with_suspected_carrier: inputRequest.typeOfContact === "Secondary",
+  };
+  return outputRequest;
+}
+export function transformPassengerCreateRequest(inputRequest) {
+  let outputRequest = {
+    phone_number: inputRequest.phone,
+    meta_info: {
+      occupation: inputRequest.occupation.toUpperCase().replace(/ /g, "_").split("/")[0],
       head_of_household: inputRequest.headOfHousehold === "Yes",
     },
     name: inputRequest.name,
     gender: genderMap[inputRequest.gender],
     address: inputRequest.address,
-    date_of_birth: printDate(inputRequest.dateOfBirth),
+    date_of_birth: printDate(inputRequest.dob),
     estimated_contact_date: inputRequest.dateOfFirstContact,
     countries_travelled: inputRequest.countryOfVisit,
     past_travel: !!inputRequest.countryOfVisit,
@@ -104,6 +141,7 @@ export function transformPatientCreateRequest(inputRequest) {
     local_body: inputRequest.nameOfLSG.id,
     district: inputRequest.district.id,
     state: inputRequest.district.state,
+    source: "COVID_TRACKER",
     contact_with_confirmed_carrier: inputRequest.typeOfContact === "Primary",
     contact_with_suspected_carrier: inputRequest.typeOfContact === "Secondary",
   };

@@ -6,10 +6,6 @@ const createSuspectValidationSchema = Yup.object().shape({
 	phone: Yup.string()
 		.validatePhone('This phone number is invalid.', true, 'IN')
 		.required('Phone number is required'),
-	dob: Yup.date()
-		.required('Date of birth is required'),
-	gender: Yup.string()
-		.required('Gender is required')
 });
 
 export default createSuspectValidationSchema;

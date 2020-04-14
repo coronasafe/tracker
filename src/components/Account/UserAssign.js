@@ -5,13 +5,13 @@ import Select from 'react-select';
 import createUserValidationSchema from '../../util/create-user.validation';
 
 export default function UserAssign() {
-	const [permissions, setPermissions] = useState([
+	const permissions = [
 		{ label: 'Super Admins', value: 1 },
 		{ label: 'District Admins', value: 2 },
 		{ label: 'Multiple PHC Admins', value: 3 },
 		{ label: 'PHC/Railway/Airport Admins', value: 4 },
-	]);
-	const [phcs, setPhcs] = useState([
+	]
+	const phcs = [
 		{ label: 'Kerala Government medical college hospital Calicut', value: 1 },
 		{
 			label: 'Kerala Government medical college hospital Trivandrum',
@@ -20,7 +20,7 @@ export default function UserAssign() {
 		{ label: 'Kerala Government medical college hospital Kollam', value: 3 },
 		{ label: 'Kerala medical college Kochi', value: 4 },
 		{ label: 'Sree chithira thirunal hospital 272627', value: 5 },
-	]);
+	]
 
 	const [selectedPhcs, setSelectedPhcs] = useState(null);
 

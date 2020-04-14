@@ -1,15 +1,34 @@
 import { APIRequest } from "../../../Redux/fireRequest";
 import {
   searchStringMatch,
-  transformPatientCreateRequest,
+  transformPassengerCreateRequest,
+  transformContactCreateRequest,
   transformConsultationCreateRequest,
   transformTestSampleCreateRequest,
 } from "./utils";
+import { navigate } from "hookrouter";
+export function getCovidPatients(searchText) {
+  if(searchText.length === 0)
+  return Promise.resolve('Success').then(()=>{ return [] })
+  return APIRequest("searchPatient", [], {name: searchText}).then((response) => {
+    if (response && response.data && response.data.results) {
+
+      return response.data.results.map((patient)=>({name:`${patient.name} - ${patient.state_id} - ${patient.year_of_birth}`,value:patient}));
+    } else {
+      return [];
+    }
+  });
+
+
+  // return [];
+}
 
 export function getDistrictOptions(searchText) {
   return APIRequest("getDistrictsList", [""]).then((response) => {
     if (response && response.data && response.data.results) {
-      return response.data.results;
+      return response.data.results.filter((district) => {
+        return searchStringMatch(district.name, searchText);
+      });
     } else {
       return [];
     }
@@ -46,7 +65,9 @@ export function getHCNameOptions(lsg, type) {
 
 export async function saveForm(formData) {
   try {
-    let createPatientRequest = transformPatientCreateRequest(formData);
+    console.log(JSON.stringify(formData));
+    let createPatientRequest = formData.type === "Passenger" ? transformPassengerCreateRequest(formData): transformContactCreateRequest(formData);
+    console.log("Transformed");
     let createPatientResponse = await APIRequest(
       "createPatient",
       [],
@@ -75,7 +96,9 @@ export async function saveForm(formData) {
         createTestSampleRequest
       );
     }
+    navigate("/suspect/"+patientId)
   } catch (e) {
+    console.error(e)
     throw e;
   }
 }

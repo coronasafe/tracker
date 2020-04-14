@@ -57,7 +57,7 @@ function SuspectDetails({ formData, setFormData }) {
 
   if (!formData) {
     navigate("/");
-    window.location.reload();
+    // window.location.reload();
   }
   function setData(key) {
     return function (value) {
@@ -85,12 +85,12 @@ function SuspectDetails({ formData, setFormData }) {
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-6 flex flex-col my-4 w-3/4 h-auto">
         <br />
         <FormRow bordered>
-          <Labelled label="Name">{formData.name}</Labelled>
+          <Labelled label="Name">{formData?.name}</Labelled>
           <Labelled label="Date of birth">
-            {printDate(formData.dateOfBirth)}
+            {printDate(formData?.dob)}
           </Labelled>
-          <Labelled label="Gender">{formData.gender}</Labelled>
-          <Labelled label="Phone Number">{formData.phone}</Labelled>
+          <Labelled label="Gender">{formData?.gender}</Labelled>
+          <Labelled label="Phone Number">{formData?.phone}</Labelled>
         </FormRow>
 
         <FormRow>
@@ -124,7 +124,6 @@ function SuspectDetails({ formData, setFormData }) {
             <AsyncDropdown
               loadOptionsService={getDistrictOptions}
               setOption={setData("district")}
-              labelKey={"name"}
             />
           </Labelled>
         </FormRow>

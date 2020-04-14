@@ -25,9 +25,29 @@ export default {
     getPatient: {
         path: '/api/v1/patient/{id}/'
     },
-    
+
     patientList: {
         path: "/api/v1/patient"
+    },
+    getPatients: {
+        path: '/api/v1/patient',
+        method: 'GET'
+    },
+    getDistrictsList:{
+        path:"/api/v1/district",
+        method:"GET"
+    },
+    getFacilitiesList:{
+        path:"/api/v1/facility",
+        method:"GET"
+    },
+    createPatient:{
+        path:"/api/v1/patient",
+        method:"POST"
+    },
+    createConsultation:{
+        path:"/api/v1/consultation",
+        method:"POST"
     },
 
     // User Endpoints: not sure if we need them
@@ -61,25 +81,5 @@ export default {
     deleteUser: {
         path: '/api/v1/users',
         method: 'DELETE'
-    },
-    getPatients: {
-        path: '/api/v1/patient',
-        method: 'GET'
-    },
-    getDistrictsList:{
-        path:"/api/v1/district",
-        method:"GET"
-    },
-    getFacilitiesList:{
-        path:"/api/v1/facility",
-        method:"GET"
-    },
-    createPatient:{
-        path:"/api/v1/patient",
-        method:"POST"
-    },
-    createConsultation:{
-        path:"/api/v1/consultation",
-        method:"POST"
     }
 }

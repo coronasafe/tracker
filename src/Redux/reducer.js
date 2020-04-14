@@ -1,10 +1,10 @@
 import { actions } from './fireRequest';
 
 const initState ={
-    
+
 }
 
-const reducer = (state = {}, changeAction) => {
+const reducer = (state = initState, changeAction) => {
     switch (changeAction.type) {
         case actions.FETCH_REQUEST: {
             const obj = {...state};

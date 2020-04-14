@@ -4,8 +4,8 @@ import { A, navigate } from 'hookrouter'
 export default function NavBar(){
   return (
     <nav className="bg-green-600 px-8 pt-2 shadow-md">
-     <div className="-mb-px flex">
-       <img className="px-10" src={require("../../img/covid_tracker_small_logo.png")} />
+     <div className="-mb-px flex max-w-6xl mx-auto">
+       <img className="px-10" src={require("../../img/covid_tracker_small_logo.png")} alt="Logo" />
        {[
          {
            link: '/',
@@ -14,10 +14,6 @@ export default function NavBar(){
          {
            link: '/suspect/create',
            title: 'Suspect Create'
-         },
-         {
-           link: '/suspect/details',
-           title: 'Suspect Details'
          },
          {
            link: '/suspect/view',

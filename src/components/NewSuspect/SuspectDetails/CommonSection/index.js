@@ -9,9 +9,10 @@ import {
   SymptomOptions,
   LabOptions,
 } from "./constants";
-import { getSeverityOfContact } from "./utils";
 import DatePicker from "../../../common/DatePicker";
 import { getValidationError } from "../utils";
+
+// import { getSeverityOfContact } from "./utils";
 
 function CommonSection({ data, setData }) {
   return (
@@ -57,14 +58,14 @@ function CommonSection({ data, setData }) {
           <div />
         )}
       </FormRow>
-      <FormRow totalWidth={3}>
+      {/*<FormRow totalWidth={3}>
         <Labelled label="Severity of Contact">
           {getSeverityOfContact(data)}
         </Labelled>
         <Labelled label="Type of Contact">
           <Dropdown options={[]} />
         </Labelled>
-      </FormRow>
+      </FormRow>*/}
       <FormRow>
         <Labelled label="Home Isolation *" errorMessage={getValidationError(data,"homeIsolation")}>
           <Dropdown
@@ -89,7 +90,7 @@ function CommonSection({ data, setData }) {
       </FormRow>
       <FormRow>
         <Labelled label="Remarks">
-          <Textarea value={data["remakrs"]} onChange={setData("remarks")} />
+          <Textarea value={data["remarks"]} onChange={setData("remarks")} />
         </Labelled>
       </FormRow>
     </>

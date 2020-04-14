@@ -47,6 +47,7 @@ function App() {
     setInterval(updateRefreshToken, 5 * 60 * 1000)
   }, [])
 
+  // Removing Causes Infinite Loop 
   useAbortableEffect( async(status)=>{
     const res = await dispatch(getCurrentUser());
     if(!status.aborted && res && res.statusCode === 200){

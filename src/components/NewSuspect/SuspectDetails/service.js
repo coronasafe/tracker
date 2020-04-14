@@ -6,7 +6,7 @@ import {
   transformConsultationCreateRequest,
   transformTestSampleCreateRequest,
 } from "./utils";
-
+import { navigate } from "hookrouter";
 export function getCovidPatients(searchText) {
   if(searchText.length === 0)
   return Promise.resolve('Success').then(()=>{ return [] })
@@ -96,6 +96,7 @@ export async function saveForm(formData) {
         createTestSampleRequest
       );
     }
+    navigate("/suspect/"+patientId)
   } catch (e) {
     console.error(e)
     throw e;

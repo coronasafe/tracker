@@ -58,7 +58,7 @@ function SuspectDetails({ formData, setFormData }) {
 
   if (!formData) {
     navigate("/");
-    window.location.reload();
+    // window.location.reload();
   }
   function setData(key) {
     return function (value) {

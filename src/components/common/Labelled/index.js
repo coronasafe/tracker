@@ -5,7 +5,7 @@ function Labelled({ label, children }) {
     <div className="w-full p-3">
       <label
         className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-        for="grid-city"
+        htmlFor="grid-city"
       >
         {label}
       </label>

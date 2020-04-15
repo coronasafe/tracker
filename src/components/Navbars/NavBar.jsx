@@ -7,10 +7,10 @@ export default function NavBar(){
      <div className="-mb-px flex max-w-6xl mx-auto">
        <img className="px-10" src={require("../../img/covid_tracker_small_logo.png")} alt="Logo" />
        {[
-         {
-           link: '/',
-           title: 'Home'
-         },
+         // {
+         //   link: '/',
+         //   title: 'Home'
+         // },
          {
            link: '/suspect/create',
            title: 'Suspect Create'

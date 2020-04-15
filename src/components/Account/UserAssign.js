@@ -10,6 +10,7 @@ export default function UserAssign() {
 	const dispatch = useDispatch()
 	const { user_type } = useSelector(({currentUser})=>currentUser.data)
 	const [facilityOptions, setFacilityOptions] = useState([])
+	const [ respUserData, setRespUserData] = useState({})
 	let permissions = [
 		{ label: 'State Admin', value: "StateAdmin" },
 		{ label: 'District Admin', value: "DistrictAdmin" },
@@ -70,7 +71,6 @@ export default function UserAssign() {
 		 * if for a particular role phcs should be single
 		 * check for the length of selectedPhcs
 		 */
-		console.log(values, facility);
 		const { username, name, age, phone_number, } = values
 		let param = {
 			username,
@@ -84,11 +84,8 @@ export default function UserAssign() {
 		}
 		console.log('params are',param)
 		const res = await dispatch(createUser(param))
-		if(res){
-			console.log('success')
-		}
-		else{
-			console.log('error')
+		if(res.data?.password){
+			setRespUserData(res.data)
 		}
 		setSubmitting(false);
 	};
@@ -128,6 +125,11 @@ export default function UserAssign() {
 					<div class='max-w-xl bg-white px-10 pt-12 pb-40 rounded overflow-hidden shadow-lg'>
 						<form class='w-full max-w-lg' onSubmit={handleSubmit}>
 							<div class='flex flex-wrap -mx-3 mb-6'>
+								{respUserData && <div class='w-full md:w px-3 mb-6 md:mb-0 block uppercase tracking-wide text-black-700 text-sm font-bold mb-2'>
+									<div> NAME:  {respUserData.username} </div>
+									<div> PASSWORD: {respUserData.password} </div>
+								</div>}
+								
 								<div class='w-full md:w px-3 mb-6 md:mb-0'>
 									<label
 										class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'

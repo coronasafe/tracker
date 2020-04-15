@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useRoutes, navigate } from 'hookrouter';
 import NavBar from '../components/Navbars/NavBar';
 import CreateSuspect from '../components/NewSuspect/CreateSuspect';

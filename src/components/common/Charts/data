@@ -1,0 +1,213 @@
+apiResponse:{
+
+chart1Props:{
+              heading="Total number of those affected"
+
+              //Total affected by gender
+              data01 = {[
+                         { name: 'Male', value: 400 },
+                         { name: 'Female', value: 300 },
+                         { name: 'Transgender', value: 0 }]}
+
+              //Total affected by age
+               data02 = {[
+                         { name: '0-10', value: 100 },
+                         { name: '10-20', value: 300 },
+                         { name: '20-60', value: 100 },
+                         { name: '>60', value: 80 }]}
+             },
+
+ chart2Props: {
+                heading="Total number of those under hospital quarantine"
+
+                //Total under hospital quarantine by gender
+               data01 = {[
+                          { name: 'Male', value: 400 },
+                          { name: 'Female', value: 300 },
+                          { name: 'Transgender', value: 0 }]}
+
+                //Total under hospital quarantine by age
+                data02 = {[
+                          { name: '0-10', value: 100 },
+                          { name: '10-20', value: 300 },
+                          { name: '20-60', value: 100 },
+                          { name: '>60', value: 80 }]}
+              },
+
+chart3Props: {
+               heading="Total number of those under home quarantine"
+
+               //Total under home quarantine by gender
+              data01 = {[
+                         { name: 'Male', value: 400 },
+                         { name: 'Female', value: 300 },
+                         { name: 'Transgender', value: 0 }]}
+
+               //Total under home quarantine by age
+               data02 = {[
+                         { name: '0-10', value: 100 },
+                         { name: '10-20', value: 300 },
+                         { name: '20-60', value: 100 },
+                         { name: '>60', value: 80 }]}
+             },
+
+chart4Props: {
+              heading="Total number of those affected as of today"
+
+              //Total number affected as of today by gender
+             data01 = {[
+                        { name: 'Male', value: 400 },
+                        { name: 'Female', value: 300 },
+                        { name: 'Transgender', value: 0 }]}
+
+              //Total number affected as of today by age
+              data02 = {[
+                        { name: '0-10', value: 100 },
+                        { name: '10-20', value: 300 },
+                        { name: '20-60', value: 100 },
+                        { name: '>60', value: 80 }]}
+            },
+
+chart5Props: {
+              heading="Total number of those affected under hospital quarantine today"
+
+              //Total number under hospital quarantine today by gender
+             data01 = {[
+                        { name: 'Male', value: 400 },
+                        { name: 'Female', value: 300 },
+                        { name: 'Transgender', value: 0 }]}
+
+              //Total number under hospital quarantine today by age
+              data02 = {[
+                        { name: '0-10', value: 100 },
+                        { name: '10-20', value: 300 },
+                        { name: '20-60', value: 100 },
+                        { name: '>60', value: 80 }]}
+            },
+
+chart6Props: {
+              heading="Total number of those affected under home quarantine today"
+
+              //Total number under home quarantine today by gender
+             data01 = {[
+                        { name: 'Male', value: 400 },
+                        { name: 'Female', value: 300 },
+                        { name: 'Transgender', value: 0 }]}
+
+              //Total number under home quarantine today by age
+              data02 = {[
+                        { name: '0-10', value: 100 },
+                        { name: '10-20', value: 300 },
+                        { name: '20-60', value: 100 },
+                        { name: '>60', value: 80 }]}
+            },
+
+chart7Props: {
+              heading="Total number affected date wise"
+
+              //Total Number of affected cases by date
+              data = {[
+                      {
+                        "Date": "15-04-2020",
+                        "Cases": 294
+                      },
+                      {
+                        "Date": "16-04-2020",
+                        "Cases": 5294
+                      },
+                      {
+                        "Date": "17-04-2020",
+                        "Cases": 35294
+                      },
+                      {
+                        "Date": "18-04-2020",
+                        "Cases": 55294
+                      },
+                      {
+                        "Date": "19-04-2020",
+                        "Cases": 45294
+                      },
+                      {
+                        "Date": "20-04-2020",
+                        "Cases": 32945
+                      },
+                      {
+                        "Date": "21-04-2020",
+                        "Cases": 55294
+                      }
+                    ]}
+              },
+
+chart8Props: {
+              heading="Under hospital quarantine date wise"
+
+              //Number of hospital quarantined cases by date
+              data = {[
+                      {
+                        "Date": "15-04-2020",
+                        "Cases": 294
+                      },
+                      {
+                        "Date": "16-04-2020",
+                        "Cases": 5294
+                      },
+                      {
+                        "Date": "17-04-2020",
+                        "Cases": 35294
+                      },
+                      {
+                        "Date": "18-04-2020",
+                        "Cases": 55294
+                      },
+                      {
+                        "Date": "19-04-2020",
+                        "Cases": 45294
+                      },
+                      {
+                        "Date": "20-04-2020",
+                        "Cases": 32945
+                      },
+                      {
+                        "Date": "21-04-2020",
+                        "Cases": 55294
+                      }
+                    ]}
+              },
+
+chart9Props: {
+              heading="Under home quarantine date wise"
+
+              //Number of home quarantined cases by date
+              data = {[
+                      {
+                        "Date": "15-04-2020",
+                        "Cases": 294
+                      },
+                      {
+                        "Date": "16-04-2020",
+                        "Cases": 5294
+                      },
+                      {
+                        "Date": "17-04-2020",
+                        "Cases": 35294
+                      },
+                      {
+                        "Date": "18-04-2020",
+                        "Cases": 55294
+                      },
+                      {
+                        "Date": "19-04-2020",
+                        "Cases": 45294
+                      },
+                      {
+                        "Date": "20-04-2020",
+                        "Cases": 32945
+                      },
+                      {
+                        "Date": "21-04-2020",
+                        "Cases": 55294
+                      }
+                    ]}
+              }
+
+}

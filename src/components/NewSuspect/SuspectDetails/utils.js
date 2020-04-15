@@ -1,4 +1,3 @@
-import React from "react";
 import { SymptomOptions } from "./CommonSection/constants";
 
 function getLabelString(field) {

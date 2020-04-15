@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getPatients } from '../../Redux/actions'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import ViewSuspectsTableRow from '../ViewSuspects/TableRow';
 
 const initPatientParams = {

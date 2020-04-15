@@ -1,5 +1,5 @@
 import React from 'react';
-import { A, navigate } from 'hookrouter'
+import { A } from 'hookrouter'
 
 export default function PublicNavBar(){
   return (

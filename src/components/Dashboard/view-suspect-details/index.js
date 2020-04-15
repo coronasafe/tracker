@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { getPatient } from '../../../Redux/actions'
 import { useDispatch } from 'react-redux'
 
-import MedicalHistory from './medical-history';
-
 export default function ViewSuspectDetails(props) {
   	const dispatch = useDispatch()
 	const [ patientData, setPatientData ] = useState({})

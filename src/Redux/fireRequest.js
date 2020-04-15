@@ -103,6 +103,11 @@ export const APIRequest=(key, path = [], params = {}, urlParam)=>{
             ...params,
             cancelToken: isRunning[key].token
         }).then((response) => {
+            if(response.status === 201 ){
+                Notficiation.Success({
+                    msg: "Successful!"
+                })
+            }
             return response;
         }).catch((error) => {
 

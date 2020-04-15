@@ -63,9 +63,8 @@ export default {
     },
 
     createUser: {
-        path: '/api/v1/users/',
+        path: '/api/v1/users/add_user',
         method: 'POST',
-        noAuth: true,
     },
 
     updateUser: {

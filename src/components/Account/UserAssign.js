@@ -1,31 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Formik, Field } from 'formik';
 import Select from 'react-select';
+import  {useDispatch, useSelector} from 'react-redux'
+import { createUser, getFacilitiesList } from '../../Redux/actions'
 
 import createUserValidationSchema from '../../util/create-user.validation';
 
 export default function UserAssign() {
-	const permissions = [
-		{ label: 'Super Admins', value: 1 },
-		{ label: 'District Admins', value: 2 },
-		{ label: 'Multiple PHC Admins', value: 3 },
-		{ label: 'PHC/Railway/Airport Admins', value: 4 },
+	const dispatch = useDispatch()
+	const { user_type } = useSelector(({currentUser})=>currentUser.data)
+	const [facilityOptions, setFacilityOptions] = useState([])
+	const [ respUserData, setRespUserData] = useState({})
+	let permissions = [
+		{ label: 'State Admin', value: "StateAdmin" },
+		{ label: 'District Admin', value: "DistrictAdmin" },
+		{ label: 'Staff', value: "Staff" },
 	]
-	const phcs = [
-		{ label: 'Kerala Government medical college hospital Calicut', value: 1 },
-		{
-			label: 'Kerala Government medical college hospital Trivandrum',
-			value: 2,
-		},
-		{ label: 'Kerala Government medical college hospital Kollam', value: 3 },
-		{ label: 'Kerala medical college Kochi', value: 4 },
-		{ label: 'Sree chithira thirunal hospital 272627', value: 5 },
+	const setUserLevel = (type)=>{
+		switch(type){
+			case 'State Admin':
+				return 0
+			case 'District Admin':
+				return 1
+			case 'Staff':
+				return 2
+			default:
+				return -1
+		}
+	}
+	const user_type_level = setUserLevel(user_type)
+	useEffect(() => {
+		const getFacility = async () => {
+			const res = await dispatch(getFacilitiesList())
+			setFacilityOptions(res.data.results)
+		}
+			getFacility()
+	}, [])
+
+
+	permissions = permissions.filter((a,i)=>i>=user_type_level)
+
+
+	const genders = [
+		{ label: 'Male', value: "Male" },
+		{ label: 'Female', value: "Female" },
 	]
+	
+	const facilityOptionsForm = facilityOptions.map(a=> ({label:a.name, value: a.id }))
 
-	const [selectedPhcs, setSelectedPhcs] = useState(null);
-
+	const [facility, setFacility] = useState(null);
 	const selectedPhcHandler = (optionsList) => {
-		setSelectedPhcs(optionsList);
+		setFacility(optionsList);
 	};
 
 	const selectedPermissionHandler = (FieldProps) => {
@@ -46,19 +71,42 @@ export default function UserAssign() {
 		 * if for a particular role phcs should be single
 		 * check for the length of selectedPhcs
 		 */
-		console.log(values, selectedPhcs);
+		const { username, name, age, phone_number, } = values
+		let param = {
+			username,
+			name,
+			age,
+			phone_number,
+			gender: values.gender.value,
+			user_type: values.user_type.value,
+			facilities: facility.value,
+			verified: true
+		}
+		console.log('params are',param)
+		const res = await dispatch(createUser(param))
+		if(res.data?.password){
+			setRespUserData(res.data)
+		}
 		setSubmitting(false);
 	};
 
-	return (
+	if(user_type_level===-1)return (
 		<div className='h-screen overflow-hidden flex items-center justify-center'>
+			<div class='max-w-xl bg-white block uppercase px-40 pt-40 pb-40 rounded overflow-hidden shadow-lg'>
+				ACCESS DENIED
+			</div>
+			</div>
+	)
+	else return (
+		<div className='container h-screen overflow-hidden pt-40 flex items-center justify-center'>
 			<Formik
 				initialValues={{
 					username: '',
 					name: '',
-					phone: '',
-					email: '',
-					role: '',
+					age: '',
+					phone_number: '',
+					user_type: '',
+					gender: ''
 				}}
 				validationSchema={createUserValidationSchema}
 				onSubmit={(values, { setSubmitting }) => {
@@ -74,9 +122,14 @@ export default function UserAssign() {
 					isSubmitting,
 					isValid,
 				}) => (
-					<div class='max-w-xl px-4 pt-12 pb-40 rounded overflow-hidden shadow-lg'>
+					<div class='max-w-xl bg-white px-10 pt-12 pb-40 rounded overflow-hidden shadow-lg'>
 						<form class='w-full max-w-lg' onSubmit={handleSubmit}>
 							<div class='flex flex-wrap -mx-3 mb-6'>
+								{respUserData && <div class='w-full md:w px-3 mb-6 md:mb-0 block uppercase tracking-wide text-black-700 text-sm font-bold mb-2'>
+									<div> NAME:  {respUserData.username} </div>
+									<div> PASSWORD: {respUserData.password} </div>
+								</div>}
+								
 								<div class='w-full md:w px-3 mb-6 md:mb-0'>
 									<label
 										class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
@@ -84,7 +137,7 @@ export default function UserAssign() {
 										User name
 									</label>
 									<input
-										class='appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
+										class='appearance-none block w-full bg-white-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
 										id='grid-user-name'
 										type='text'
 										placeholder='Jane'
@@ -96,14 +149,14 @@ export default function UserAssign() {
 										{errors.username && touched.username && errors.username}
 									</p>
 								</div>
-								<div class='w-full md:w px-3'>
+								<div class='w-full md:w mb-3 px-3'>
 									<label
 										class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
 										for='grid-name'>
 										Name
 									</label>
 									<input
-										class='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+										class='appearance-none block w-full bg-white-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 										id='grid-name'
 										type='text'
 										placeholder='Doe'
@@ -115,6 +168,25 @@ export default function UserAssign() {
 										{errors.name && touched.name && errors.name}
 									</p>
 								</div>
+								<div class='w-30 md:w px-3'>
+									<label
+										class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+										for='grid-age'>
+										Age
+									</label>
+									<input
+										class='appearance-none block w-full bg-white-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+										id='grid-age'
+										type='number'
+										placeholder='Doe'
+										onChange={handleChange('age')}
+										onBlur={handleBlur('age')}
+										value={values.age}
+									/>
+									<p class='text-red-500 text-xs italic'>
+										{errors.age && touched.age && errors.age}
+									</p>
+								</div>
 							</div>
 							<div class='flex flex-wrap -mx-3 mb-6'>
 								<div class='w-full px-3'>
@@ -124,39 +196,37 @@ export default function UserAssign() {
 										Phone
 									</label>
 									<input
-										class='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+										class='appearance-none block w-full bg-white-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 										id='grid-phone'
-										type='number'
+										type='text'
 										placeholder='+91-1234567890'
-										value={values.phone}
-										onChange={handleChange('phone')}
+										value={values.phone_number}
+										onChange={handleChange('phone_number')}
 										onBlur={handleBlur('phone')}
 									/>
 									<p class='text-red-500 text-xs italic'>
-										{errors.phone && touched.phone && errors.phone}
-									</p>
-								</div>
-								<div class='w-full md:w px-3 mb-6 md:mb-0'>
-									<label
-										class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
-										for='grid-email'>
-										Email
-									</label>
-									<input
-										class='appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
-										id='grid-email'
-										type='email'
-										placeholder='abc@mail.com'
-										value={values.email}
-										onChange={handleChange('email')}
-										onBlur={handleBlur('email')}
-									/>
-									<p class='text-red-500 text-xs italic'>
-										{errors.email && touched.email && errors.email}
+										{errors.phone_number && touched.phone_number && errors.phone_number}
 									</p>
 								</div>
 							</div>
 							<div class='flex flex-wrap -mx mb-2'>
+								<div class='w-full md:w mb-4'>
+									<label
+										class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+										htmlFor='grid-role'>
+										Gender
+									</label>
+									<div class='relative'>
+										<Field
+											name='gender'
+											options={genders}
+											component={selectedPermissionHandler}
+										/>
+										<p class='text-red-500 text-xs italic'>
+											{errors.gender && touched.gender && errors.gender}
+										</p>
+									</div>
+								</div>
 								<div class='w-full md:w mb-4'>
 									<label
 										class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
@@ -165,12 +235,12 @@ export default function UserAssign() {
 									</label>
 									<div class='relative'>
 										<Field
-											name='role'
+											name='user_type'
 											options={permissions}
 											component={selectedPermissionHandler}
 										/>
 										<p class='text-red-500 text-xs italic'>
-											{errors.role && touched.role && errors.role}
+											{errors.user_type && touched.user_type && errors.user_type}
 										</p>
 									</div>
 								</div>
@@ -183,11 +253,11 @@ export default function UserAssign() {
 									<div class='relative'>
 										<Select
 											name='phcs'
-											value={selectedPhcs}
+											value={facility}
 											onChange={selectedPhcHandler}
 											closeMenuOnSelect={false}
-											options={phcs}
-											isMulti={values.role.value !== 4 ? true : false}
+											options={facilityOptionsForm}
+											isMulti={values.user_type.value !== 4 ? true : false}
 											isSearchable={true}
 											placeholder='Select PHCs'
 										/>

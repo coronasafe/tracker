@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Sector, Label } from 'recharts';
+import React, { useState, useEffect } from 'react';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid,
+         Tooltip, Legend, PieChart, Pie, Sector, Label, Text } from 'recharts';
 
 //SIMPLE BAR CHART
 export function SimpleBarChart(props)
 {
   return (
-    <div className='flex-auto box-border shadow-lg bg-white m-2 w-auto inline-block'>
+    <div className='box-border shadow-lg bg-white w-full max-w-lg ml-auto mr-auto pb-5'>
       <div className='bg-gray-100 p-2 text-lg text-blue-500'>
         {props.heading}
       </div>
-      <div className='justify-center p-4'>
-        <BarChart width={400}
+      <div className='justify-center -ml-1 mr-5 mt-10'>
+        <BarChart width={390}
                   height={300}
                   data={props.data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="Date" />
+          <XAxis dataKey="Date" angle="295" interval={0} tickMargin={20} height={80} allowDataOverflow="true" tickSize={20}/>
           <YAxis />
           <Tooltip />
           <Bar dataKey="Cases" fill="#8884d8" />
@@ -130,34 +131,59 @@ export function CustomPieChart(props)
 
 export function TwoLevelPieChart(props)
 {
-  const [COLORS, setCOLORS] = useState(['#8884D8', '#FF9FC0', '#476DAF']);
-  const [COLORSTWO, setCOLORSTWO] = useState(['#0088FE', '#00C49F', '#FFBB28', '#FF8042']);
+  const [COLORSONE, setCOLORSONE] = useState(props.colors01);
+  const [COLORSTWO, setCOLORSTWO] = useState(props.colors02);
 
-    return (
-      <div className='flex-auto box-border shadow-lg bg-white m-4 w-1/4 inline-block'>
+  const totalNumber = (data) =>
+  {
+    let count=0;
+    data.forEach((item, i) => {
+      count= count+item.value
+    });
+    return count;
+  }
+  const renderLegend = (legendName, data, colors) => {
+   return (
+     <div class="justify-center">
+       <div class="m-4">
+          <div class="text-left">{legendName}</div>
+          <div class='flex'>
+            {data.map((legend, index) =>
+            index <= data.length &&
+            <div class="mr-4">
+              <div class="inline-block rounded-full h-3 w-3 items-center justify-center mr-2"
+                   style={{backgroundColor : colors[index]}}></div>
+              <div class="inline-block">{legend.name}</div>
+            </div>)}
+          </div>
+       </div>
+    </div>
+   );}
+
+   return (
+      <div className='box-border shadow-lg bg-white w-full max-w-sm ml-auto mr-auto'>
         <div className='bg-gray-100 p-4 text-lg text-blue-500 h-20'>
-          {props.heading}
+          {props.heading}: <span class="text-orange-600 text-xl">{totalNumber(props.data01)}</span>
         </div>
-        <div className='justify-center p-4'>
+        <div className='justify-center'>
 
           <PieChart width={400} height={400}>
-
             <Pie data={props.data02} dataKey="value" cx={200} cy={200} innerRadius={70} outerRadius={90} fill="#82ca9d" label>
-                {props.data02.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORSTWO[index % COLORSTWO.length]} />)}
+                {props.data02.map((entry, index) =>
+                <Cell key={`cell-${index}`} fill={COLORSTWO[index % COLORSTWO.length]} />)}
             </Pie>
             <Tooltip />
-            <Legend verticalAlign="top" height={20} iconType="circle"/>
+            <Legend content={renderLegend(props.legend02, props.data02, props.colors02)} verticalAlign="top" height={10}/>
           </PieChart>
-          <PieChart width={400} height={400}>
 
+          <PieChart width={400} height={400}>
             <Pie data={props.data01} dataKey="value" cx={200} cy={200} innerRadius={70} outerRadius={90} fill="#82ca9d" label>
-                {props.data01.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
+                {props.data01.map((entry, index) =>
+                <Cell key={`cell-${index}`} fill={COLORSONE[index % COLORSONE.length]} />)}
             </Pie>
             <Tooltip />
-            <Legend verticalAlign="top" height={20} iconType="circle"/>
+            <Legend content={renderLegend(props.legend01, props.data01, props.colors01)} verticalAlign="top" height={10}/>
           </PieChart>
         </div>
       </div>
-
-    );
-}
+  );}

@@ -22,13 +22,14 @@
     "recharts": "^1.8.5",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "yup": "^0.28.3"
+    "yup": "^0.28.3",
+    "tailwindcss": "^1.2.0"
   },
   "scripts": {
     "build:css": "postcss src/tailwind.css -o src/index.css",
     "watch:css": "postcss src/tailwind.css -o src/index.css -w",
     "start": "concurrently --kill-others \"npm run watch:css\" \"react-scripts start\"",
-    "build": "npm run build:css && react-scripts build",
+    "build": "NODE_ENV=production npm run build:css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
@@ -52,6 +53,7 @@
     "bs-platform": "^7.2.2",
     "concurrently": "^5.1.0",
     "postcss-cli": "^7.1.0",
-    "tailwindcss": "^1.2.0"
+    "cssnano": "^4.1.10",
+    "@fullhuman/postcss-purgecss": "^2.1.2"
   }
 }

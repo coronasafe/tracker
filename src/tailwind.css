@@ -2,9 +2,7 @@
 
 @tailwind components;
 
-@tailwind utilities;
-
-.react-date-picker__wrapper{
+.react-date-picker__wrapper {
   border: none !important;
 }
 
@@ -13,6 +11,7 @@
   width: 80px;
   height: 80px;
 }
+
 .lds-dual-ring:after {
   content: " ";
   display: block;
@@ -24,6 +23,7 @@
   border-color: #ccc transparent #ccc transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
+
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);
@@ -32,3 +32,5 @@
     transform: rotate(360deg);
   }
 }
+
+@tailwind utilities;

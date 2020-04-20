@@ -4,10 +4,23 @@ import {SimpleBarChart, StackedBarChart, CustomPieChart, TwoLevelPieChart} from 
 export default function Home() {
 
   return(
-  <div className='h-screen justify-center py-6'>
-
+  <div className='min-h-screen justify-center py-6 bg-gray-200 max-w-6xl mx-auto'>
+    <div className='flex flex-wrap bg-gray-200 justify-center w-full pb-8'>
+      <div className='mr-3 md:mr-6 lg:mr-12 text-red-500'>
+        <p className='text-6xl text-center font-mono'>401</p>
+        <p className='text-sm -mt-4 text-center font-serif'>Total affected</p>
+      </div>
+      <div className='mr-3 md:mr-6 lg:mr-12 text-orange-500'>
+        <p className='text-6xl text-center font-mono'>124</p>
+        <p className='text-sm -mt-4 text-center font-serif'>Hospital quarantined</p>
+       </div>
+       <div className='mr-3 md:mr-4 text-yellow-500'>
+         <p className='text-6xl text-center font-mono'>624</p>
+         <p className='text-sm -mt-4 text-center font-serif'>Home quarantined</p>
+       </div>
+    </div>
     <div className='flex flex-wrap bg-gray-200 justify-center'>
-      <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>
+      <div className='w-full p-1 sm:w-full md:w-1/2 lg:w-1/3 pb-5'>
         <TwoLevelPieChart heading="Total number of those affected"
                           data01 = {[
                                      { name: 'Male', value: 200 },
@@ -23,33 +36,33 @@ export default function Home() {
                            legend01="Gender Wise"
                            legend02="Age Wise"/>
       </div>
-      <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>
+      <div className='w-full p-1 sm:w-full md:w-1/2 lg:w-1/3 pb-5'>
         <TwoLevelPieChart heading="Total number of those under hospital quarantine"
                            data01 = {[
-                                      { name: 'Male', value: 400 },
-                                      { name: 'Female', value: 300 },
+                                      { name: 'Male', value: 500 },
+                                      { name: 'Female', value: 200 },
                                       { name: 'Transgender', value: 0 }]}
                            data02 = {[
-                                      { name: '0-10', value: 100 },
-                                      { name: '10-20', value: 300 },
-                                      { name: '20-60', value: 100 },
+                                      { name: '0-10', value: 105 },
+                                      { name: '10-20', value: 290 },
+                                      { name: '20-60', value: 110 },
                                       { name: '>60', value: 80 }]}
                            colors01= {["#8884D8", "#FF9FC0", "#476DAF"]}
                            colors02= {["#0088FE", "#00C49F", "#FFBB28", "#FF8042"]}
                            legend01="Gender Wise"
                            legend02="Age Wise"/>
        </div>
-       <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>
+       <div className='w-full p-1 sm:w-full md:w-1/2 lg:w-1/3 pb-5'>
          <TwoLevelPieChart heading="Total number of those under home quarantine"
                           data01 = {[
                                      { name: 'Male', value: 400 },
                                      { name: 'Female', value: 300 },
                                      { name: 'Transgender', value: 0 }]}
                            data02 = {[
-                                     { name: '0-10', value: 100 },
-                                     { name: '10-20', value: 300 },
-                                     { name: '20-60', value: 100 },
-                                     { name: '>60', value: 80 }]}
+                                     { name: '0-10', value: 99 },
+                                     { name: '10-20', value: 250 },
+                                     { name: '20-60', value: 56 },
+                                     { name: '>60', value: 20 }]}
                            colors01= {["#8884D8", "#FF9FC0", "#476DAF"]}
                            colors02= {["#0088FE", "#00C49F", "#FFBB28", "#FF8042"]}
                            legend01="Gender Wise"
@@ -57,7 +70,7 @@ export default function Home() {
        </div>
     </div>
     <div className='flex flex-wrap bg-gray-200 justify-center'>
-       <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>
+       <div className='w-full p-1 sm:w-full md:w-1/2 lg:w-1/3 pb-5'>
         <TwoLevelPieChart heading="Total number of those affected as of today"
                           data01 = {[
                                      { name: 'Male', value: 400 },
@@ -74,7 +87,7 @@ export default function Home() {
                           legend01="Gender Wise"
                           legend02="Age Wise"/>
        </div>
-       <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>
+       <div className='w-full p-1 sm:w-full md:w-1/2 lg:w-1/3 pb-5'>
         <TwoLevelPieChart heading="Total number of those affected under hospital quarantine today"
                            data01 = {[
                                       { name: 'Male', value: 400 },
@@ -90,7 +103,7 @@ export default function Home() {
                             legend01="Gender Wise"
                             legend02="Age Wise"/>
        </div>
-       <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>
+       <div className='w-full p-1 sm:w-full md:w-1/2 lg:w-1/3 pb-5'>
         <TwoLevelPieChart heading="Total number of those affected under home quarantine today"
                           data01 = {[
                                      { name: 'Male', value: 400 },

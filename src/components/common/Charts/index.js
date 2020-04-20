@@ -6,14 +6,14 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid,
 export function SimpleBarChart(props)
 {
   return (
-    <div className='box-border shadow-lg bg-white w-full max-w-lg ml-auto mr-auto pb-5'>
-      <div className='bg-gray-100 p-2 text-lg text-blue-500'>
+    <div className='box-border shadow-lg bg-white w-full max-w-xl ml-auto mr-auto pb-5'>
+      <div className='bg-gray-100 p-2 font-serif text-lg text-blue-500'>
         {props.heading}
       </div>
       <div className='justify-center -ml-1 mr-5 mt-10'>
-        <BarChart width={390}
+        <BarChart width={350}
                   height={300}
-                  data={props.data}>
+                  data={props.data} style={{marginLeft:"auto", marginRight: "auto"}}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="Date" angle="295" interval={0} tickMargin={20} height={80} allowDataOverflow="true" tickSize={20}/>
           <YAxis />
@@ -145,7 +145,7 @@ export function TwoLevelPieChart(props)
   const renderLegend = (legendName, data, colors) => {
    return (
      <div class="justify-center">
-       <div class="m-4">
+       <div class="m-4 mb-0">
           <div class="text-left">{legendName}</div>
           <div class='flex'>
             {data.map((legend, index) =>
@@ -161,29 +161,31 @@ export function TwoLevelPieChart(props)
    );}
 
    return (
-      <div className='box-border shadow-lg bg-white w-full max-w-sm sm:max-w-sm md:max-w-md lg:max-w-sm xl:max-w-md ml-auto mr-auto'>
-        <div className='bg-gray-100 p-4 text-lg text-blue-500 h-20'>
-          {props.heading}: <span class="text-orange-600 text-xl">{totalNumber(props.data01)}</span>
+      <div className='box-border shadow-lg bg-white w-full max-w-sm sm:max-w-sm md:max-w-md lg:max-w-sm xl:max-w-xl ml-auto mr-auto'>
+        <div className='bg-gray-100 p-4 text-lg font-serif text-blue-500 h-20'>
+          {props.heading}
         </div>
         <div className='justify-center'>
-
-          <PieChart width={400} height={400}>
-            <Pie data={props.data02} dataKey="value" cx={200} cy={200} innerRadius={70} outerRadius={90} fill="#82ca9d" label>
-                {props.data02.map((entry, index) =>
-                <Cell key={`cell-${index}`} fill={COLORSTWO[index % COLORSTWO.length]} />)}
-            </Pie>
-            <Tooltip />
-            <Legend content={renderLegend(props.legend02, props.data02, props.colors02)} verticalAlign="top" height={10}/>
-          </PieChart>
-
-          <PieChart width={400} height={400}>
-            <Pie data={props.data01} dataKey="value" cx={200} cy={200} innerRadius={70} outerRadius={90} fill="#82ca9d" label>
-                {props.data01.map((entry, index) =>
-                <Cell key={`cell-${index}`} fill={COLORSONE[index % COLORSONE.length]} />)}
-            </Pie>
-            <Tooltip />
-            <Legend content={renderLegend(props.legend01, props.data01, props.colors01)} verticalAlign="top" height={10}/>
-          </PieChart>
+          <div className='-mt-3'>
+            <PieChart width={400} height={350} style={{marginLeft:"auto", marginRight: "auto"}}>
+              <Pie data={props.data02} dataKey="value" cx={200} cy={200} innerRadius={70} outerRadius={90} fill="#82ca9d" label>
+                  {props.data02.map((entry, index) =>
+                  <Cell key={`cell-${index}`} fill={COLORSTWO[index % COLORSTWO.length]} />)}
+              </Pie>
+              <Tooltip />
+              <Legend content={renderLegend(props.legend02, props.data02, props.colors02)} verticalAlign="top" height={10}/>
+            </PieChart>
+          </div>
+          <div className='-mt-3'>
+            <PieChart width={400} height={350} style={{marginLeft:"auto", marginRight: "auto"}}>
+              <Pie data={props.data01} dataKey="value" cx={200} cy={200} innerRadius={70} outerRadius={90} fill="#82ca9d" label>
+                  {props.data01.map((entry, index) =>
+                  <Cell key={`cell-${index}`} fill={COLORSONE[index % COLORSONE.length]} />)}
+              </Pie>
+              <Tooltip />
+              <Legend content={renderLegend(props.legend01, props.data01, props.colors01)} verticalAlign="top" height={10}/>
+            </PieChart>
+          </div>
         </div>
       </div>
   );}

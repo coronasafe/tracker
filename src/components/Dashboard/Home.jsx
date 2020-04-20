@@ -4,7 +4,7 @@ import {SimpleBarChart, StackedBarChart, CustomPieChart, TwoLevelPieChart} from 
 export default function Home() {
 
   return(
-  <div className='h-screen justify-center py-6 bg-gray-200 max-w-6xl mx-auto'>
+  <div className='min-h-screen justify-center py-6 bg-gray-200 max-w-6xl mx-auto'>
     <div className='flex flex-wrap bg-gray-200 justify-center w-full pb-8'>
       <div className='mr-3 md:mr-6 lg:mr-12 text-red-500'>
         <p className='text-6xl text-center font-mono'>401</p>

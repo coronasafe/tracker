@@ -5,6 +5,20 @@ export default function Home() {
 
   return(
   <div className='h-screen justify-center py-6'>
+  <div className='flex flex-wrap bg-gray-200 justify-center w-full pb-8'>
+    <div className='mr-3 md:mr-6 lg:mr-12 text-red-500'>
+      <p className='text-6xl text-center font-mono'>401</p>
+      <p className='text-sm -mt-4 text-center font-serif'>Total affected</p>
+    </div>
+    <div className='mr-3 md:mr-6 lg:mr-12 text-orange-500'>
+      <p className='text-6xl text-center font-mono'>124</p>
+      <p className='text-sm -mt-4 text-center font-serif'>Hospital quarantined</p>
+     </div>
+     <div className='mr-3 md:mr-4 text-yellow-500'>
+       <p className='text-6xl text-center font-mono'>124</p>
+       <p className='text-sm -mt-4 text-center font-serif'>Home quarantined</p>
+     </div>
+  </div>
 
     <div className='flex flex-wrap bg-gray-200 justify-center'>
       <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>

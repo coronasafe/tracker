@@ -11,9 +11,9 @@ export function SimpleBarChart(props)
         {props.heading}
       </div>
       <div className='justify-center -ml-1 mr-5 mt-10'>
-        <BarChart width={390}
+        <BarChart width={350}
                   height={300}
-                  data={props.data}>
+                  data={props.data} style={{marginLeft:"auto", marginRight: "auto"}}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="Date" angle="295" interval={0} tickMargin={20} height={80} allowDataOverflow="true" tickSize={20}/>
           <YAxis />
@@ -167,7 +167,7 @@ export function TwoLevelPieChart(props)
         </div>
         <div className='justify-center'>
           <div className='-mt-3'>
-            <PieChart width={400} height={350}>
+            <PieChart width={400} height={350} style={{marginLeft:"auto", marginRight: "auto"}}>
               <Pie data={props.data02} dataKey="value" cx={200} cy={200} innerRadius={70} outerRadius={90} fill="#82ca9d" label>
                   {props.data02.map((entry, index) =>
                   <Cell key={`cell-${index}`} fill={COLORSTWO[index % COLORSTWO.length]} />)}
@@ -177,7 +177,7 @@ export function TwoLevelPieChart(props)
             </PieChart>
           </div>
           <div className='-mt-3'>
-            <PieChart width={400} height={350}>
+            <PieChart width={400} height={350} style={{marginLeft:"auto", marginRight: "auto"}}>
               <Pie data={props.data01} dataKey="value" cx={200} cy={200} innerRadius={70} outerRadius={90} fill="#82ca9d" label>
                   {props.data01.map((entry, index) =>
                   <Cell key={`cell-${index}`} fill={COLORSONE[index % COLORSONE.length]} />)}

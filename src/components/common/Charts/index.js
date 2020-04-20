@@ -161,7 +161,7 @@ export function TwoLevelPieChart(props)
    );}
 
    return (
-      <div className='box-border shadow-lg bg-white w-full max-w-sm ml-auto mr-auto'>
+      <div className='box-border shadow-lg bg-white w-full max-w-sm sm:max-w-sm md:max-w-md lg:max-w-sm xl:max-w-md ml-auto mr-auto'>
         <div className='bg-gray-100 p-4 text-lg text-blue-500 h-20'>
           {props.heading}: <span class="text-orange-600 text-xl">{totalNumber(props.data01)}</span>
         </div>

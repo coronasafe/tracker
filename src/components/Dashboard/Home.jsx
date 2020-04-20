@@ -7,7 +7,7 @@ export default function Home() {
   <div className='h-screen justify-center py-6'>
 
     <div className='flex flex-wrap bg-gray-200 justify-center'>
-      <div className='lg:w-1/3 p-1 pb-5'>
+      <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>
         <TwoLevelPieChart heading="Total number of those affected"
                           data01 = {[
                                      { name: 'Male', value: 200 },
@@ -23,7 +23,7 @@ export default function Home() {
                            legend01="Gender Wise"
                            legend02="Age Wise"/>
       </div>
-      <div className='lg:w-1/3 p-1 pb-5'>
+      <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>
         <TwoLevelPieChart heading="Total number of those under hospital quarantine"
                            data01 = {[
                                       { name: 'Male', value: 400 },
@@ -39,7 +39,7 @@ export default function Home() {
                            legend01="Gender Wise"
                            legend02="Age Wise"/>
        </div>
-       <div className='lg:w-1/3 p-1 pb-5'>
+       <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>
          <TwoLevelPieChart heading="Total number of those under home quarantine"
                           data01 = {[
                                      { name: 'Male', value: 400 },
@@ -57,7 +57,7 @@ export default function Home() {
        </div>
     </div>
     <div className='flex flex-wrap bg-gray-200 justify-center'>
-       <div className='lg:w-1/3 p-1 pb-5'>
+       <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>
         <TwoLevelPieChart heading="Total number of those affected as of today"
                           data01 = {[
                                      { name: 'Male', value: 400 },
@@ -74,7 +74,7 @@ export default function Home() {
                           legend01="Gender Wise"
                           legend02="Age Wise"/>
        </div>
-       <div className='lg:w-1/3 p-1 pb-5'>
+       <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>
         <TwoLevelPieChart heading="Total number of those affected under hospital quarantine today"
                            data01 = {[
                                       { name: 'Male', value: 400 },
@@ -90,7 +90,7 @@ export default function Home() {
                             legend01="Gender Wise"
                             legend02="Age Wise"/>
        </div>
-       <div className='lg:w-1/3 p-1 pb-5'>
+       <div className='w-full sm:w-full md:w-1/2 md:p-1 lg:w-1/3 lg:p-1 pb-5'>
         <TwoLevelPieChart heading="Total number of those affected under home quarantine today"
                           data01 = {[
                                      { name: 'Male', value: 400 },

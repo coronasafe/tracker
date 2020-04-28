@@ -1,3 +1,4 @@
+import {navigate} from "hookrouter";
 export const existingSuspectsConfig={
     columns:[
         {
@@ -12,17 +13,17 @@ export const existingSuspectsConfig={
             title:"Gender",
             key:"gender",
         },
-        {
-            title:"Date of Birth",
-            key:"date_of_birth",
-            component:({children,row})=>{
-                if(!children){
-                    return row["year_of_birth"];
-                }
-                else{
-                    return children
-                }
-            }
-        }
+        // {
+        //     title:"Date of Birth",
+        //     key:"date_of_birth",
+        //     component:({children,row})=>{
+        //         if(!children){
+        //             return row["year_of_birth"];
+        //         }
+        //         else{
+        //             return children
+        //         }
+        //     }
+        // }
     ]
 }

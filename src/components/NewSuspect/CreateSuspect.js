@@ -26,7 +26,8 @@ function CreateSuspect({searchPatient,setCurrentPatient}) {
 			}
 			else if(response.data.count!==0){
 				Error({msg:"Patient already exists."})
-				setCurrentPatient(values)
+				console.log(JSON.stringify(response.data))
+				// setCurrentPatient(values)
 				setExistingSuspects(response.data.results);
 			}
 		})
@@ -150,10 +151,10 @@ function mapDispatchToProps(dispatch){
   return {
     searchPatient:(formData)=>{
       return searchPatient(formData)(dispatch);
-	},
-	setCurrentPatient:(patientData)=>{
-		return setCurrentPatient(patientData)(dispatch);
-	}
+		},
+		setCurrentPatient:(patientData)=>{
+			return setCurrentPatient(patientData)(dispatch);
+		}
   }
 }
 

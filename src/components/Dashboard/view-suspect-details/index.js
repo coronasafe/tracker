@@ -34,14 +34,14 @@ export default function ViewSuspectDetails(props) {
 	return !patientData ? (<div class="lds-dual-ring mx-auto h-screen w-full items-center justify-center overflow-hidden flex"/>)
 	: (
 		<div className='h-full w-full flex justify-center py-5 max-w-5xl mx-auto'>
-			<div class='w-auto mx-12 rounded overflow-hidden shadow-lg  bg-white'>
+			<div class='w-full mx-12 rounded overflow-hidden shadow-lg  bg-white'>
 				<div class='px-6 py-4'>
 					<div class='font-bold text-xl mb-2'>Patient Information</div>
-					<div class='w-screen'>
+					<div class='w-full'>
 						<div class='px-4 py-5 border-b border-gray-200 sm:px-6'>
 							<h3 class='text-lg leading-6 font-medium text-gray-900'>{name}</h3>
 						</div>
-						<div class='px-4 py-5 sm:px-6'>
+						<div class='py-5 px-6'>
 							<dl class='grid grid-cols-1 col-gap-4 row-gap-8 sm:grid-cols-2'>
 								<div class='sm:col-span-1'>
 									<dt class='text-sm leading-5 font-medium text-gray-500'>
@@ -118,9 +118,9 @@ export default function ViewSuspectDetails(props) {
 					</div>
 				</div>
 
-				<div class='px-6 py-4 w-screen'>
+				<div class='px-6 py-4 w-full'>
 					<div class='font-bold text-xl mb-2'>Nearest facility</div>
-					<div class='w-screen'>
+					<div class='w-full'>
 						<div class='px-4 py-5 border-b border-gray-200 sm:px-6'>
 							<h3 class='text-lg leading-6 font-medium text-gray-900'>
 								{facility_object?.name || "N/A"}
@@ -186,7 +186,7 @@ export default function ViewSuspectDetails(props) {
 					</div>
 				</div>
 
-				<div class='px-6 py-4 w-screen'>
+				<div class='px-6 py-4 w-full'>
 					<div class='font-bold text-xl mb-2'>Medical History</div>
 				</div>
 				{/* {patientData?.medical_history?.map(medicalHistory => <MedicalHistory medicalHistory={medicalHistory}/>)} */}
